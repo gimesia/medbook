@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedBook</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="layout">
+        <div class="topbar">
+            <span id="user-name"></span>'s MedBook
+        </div>
+        <div class="sidebar">
+            <a href="#">My IMAGES</a>
+            <a href="#" class="active">FEED</a>
+            <a href="#">CONNECTIONS</a>
+            <a href="#">SETTINGS</a>
+            <a href="#">LOGOUT</a>
+        </div>
+        <div class="content">
+            <div class="main-content" id="feed">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        const userName = "Aron"; // You can change this dynamically
+        const feedItems = [
+            {
+                username: 'other-User1',
+                date: '04/04/2024',
+                type: 'MRI',
+                description: 'Brain',
+                imgRef: './assets/brain_mr.png'
+            },
+            {
+                username: 'other-User2',
+                date: '04/04/2024',
+                type: 'CT',
+                description: 'Lung',
+                imgRef: './assets/lung_ct.png'
+            }
+        ];
+
+        function loadUserName() {
+            document.getElementById('user-name').textContent = userName;
+        }
+
+        function loadFeedItems() {
+            const feedContainer = document.getElementById('feed');
+            feedContainer.innerHTML = '';
+            feedItems.forEach(item => {
+                const feedItem = document.createElement('div');
+                feedItem.className = 'feed-item';
+                feedItem.innerHTML = `
+                    <h2>&lt;${item.username}&gt;</h2>
+                    <div class=feed-item-content>
+                        <div class=feed-item-info>
+                            <p>${item.date} <br> ${item.type}</p>
+                            <h3>${item.description}</h3>
+                        </div>
+                        <div>
+                            <img src="${item.imgRef}" alt="${item.imgRef}">
+                        </div>
+                    </div>
+                `;
+                feedContainer.appendChild(feedItem);
+            });
+        }
+
+        window.onload = () => {
+            loadUserName();
+            loadFeedItems();
+        };
+    </script>
+</body>
+
+</html>
