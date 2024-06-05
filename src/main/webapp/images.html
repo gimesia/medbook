@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedBook</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="layout">
+        <div class="topbar">
+            <span id="user-name"></span>'s MedBook
+        </div>
+        <div class="sidebar">
+            <a href="#" class="active">My IMAGES</a>
+            <a href="#">FEED</a>
+            <a href="#">CONNECTIONS</a>
+            <a href="#">SETTINGS</a>
+            <a href="#">LOGOUT</a>
+        </div>
+        <div class="content">
+            <div class="main-content">
+                <div class="filter-bar">
+                    <div>
+                        <label for="type">Type:</label>
+                        <select id="type" name="type">
+                            <option value="all">All</option>
+                            <option value="ct">CT</option>
+                            <option value="mr">MRI</option>
+                            <option value="xray">X-ray</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="images-container" id="images">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const userName = "Aron"; // You can change this dynamically
+        const feedItems = [
+            {
+                date: '04/04/2024',
+                type: 'CT',
+                description: 'Lung',
+                imgRef: './assets/lung_ct.png'
+            },
+            {
+                date: '04/03/2024',
+                type: 'CT',
+                description: 'Lung',
+                imgRef: './assets/lung_ct.png'
+            },
+            {
+                date: '04/02/2024',
+                type: 'CT',
+                description: 'Lung',
+                imgRef: './assets/lung_ct.png'
+            },
+            {
+                date: '04/01/2024',
+                type: 'CT',
+                description: 'Lung',
+                imgRef: './assets/lung_ct.png'
+            },
+            {
+                date: '04/01/2024',
+                type: 'CT',
+                description: 'Lung',
+                imgRef: './assets/lung_ct.png'
+            },
+            {
+                date: '04/01/2024',
+                type: 'CT',
+                description: 'Lung',
+                imgRef: './assets/lung_ct.png'
+            }
+        ];
+
+        function loadUserName() {
+            document.getElementById('user-name').textContent = userName;
+        }
+
+        function loadFeedItems() {
+            const feedContainer = document.getElementById('images');
+            feedContainer.innerHTML = '';
+            feedItems.forEach(item => {
+                const feedItem = document.createElement('div');
+                feedItem.className = 'image-card';
+                feedItem.innerHTML = `
+                    <img src="${item.imgRef}" alt="${item.description}">
+                    <p>${item.date} <br> ${item.type}</p>
+                    <h3>${item.description}</h3>
+                `;
+                feedContainer.appendChild(feedItem);
+            });
+        }
+
+        window.onload = () => {
+            loadUserName();
+            loadFeedItems();
+        };
+    </script>
+</body>
+
+</html>
