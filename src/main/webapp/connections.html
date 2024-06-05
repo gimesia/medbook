@@ -1,52 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedBook</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
-    <div class="topbar">
-        <span id="user-name"></span>'s MedBook
-    </div>
-    <div class="sidebar">
-        <a href="#">My IMAGES</a>
-        <a href="#">FEED</a>
-        <a href="#" class="active">CONNECTIONS</a>
-        <a href="#">SETTINGS</a>
-        <a href="#">LOGOUT</a>
-    </div>
-    <div class="main-content">
-        <div class="filter-bar">
-            <div>
-                <label for="role">Role:</label>
-                <select id="role" name="role">
-                    <option value="all">All</option>
-                    <option value="patient">Patient</option>
-                    <option value="doctor">Doctor</option>
-                </select>
-            </div>
-            <div>
-                <label for="connection">Connection:</label>
-                <select id="connection" name="connection">
-                    <option value="all">All</option>
-                    <option value="connected">Connected</option>
-                    <option value="not-connected">Not Connected</option>
-                </select>
+    <div class="layout">
+        <div class="topbar">
+            <span id="user-name"></span>'s MedBook
+        </div>
+        <div class="sidebar">
+            <a href="#">My IMAGES</a>
+            <a href="#">FEED</a>
+            <a href="#" class="active">CONNECTIONS</a>
+            <a href="#">SETTINGS</a>
+            <a href="#">LOGOUT</a>
+        </div>
+        <div class="content">
+            <div class="main-content">
+                <div class="filter-bar">
+                    <div>
+                        <label for="role">Role:</label>
+                        <select id="role" name="role">
+                            <option value="all">All</option>
+                            <option value="patient">Patient</option>
+                            <option value="doctor">Doctor</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="connection">Connection:</label>
+                        <select id="connection" name="connection">
+                            <option value="all">All</option>
+                            <option value="connected">Connected</option>
+                            <option value="not-connected">Not Connected</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="connections" id="connectionsTable">
+                    <thead>
+                        <tr>
+                            <th>USERNAME</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
             </div>
         </div>
-        <table class="connections" id="connectionsTable">
-            <thead>
-                <tr>
-                    <th>USERNAME</th>
-                    <th>ACTIONS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Dynamic content will be inserted here -->
-            </tbody>
-        </table>
     </div>
     <script>
         const connections = [
@@ -88,4 +94,5 @@
         };
     </script>
 </body>
+
 </html>
