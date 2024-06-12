@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedBook</title>
+    <!-- Include Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -23,13 +25,21 @@
         <div class="content">
             <div class="main-content">
                 <div class="filter-bar">
-                    <div>
+                    <div class="filter-group">
                         <label for="type">Type:</label>
-                        <select id="type" name="type">
+                        <select id="type" name="type" class="browser-default">
                             <option value="all">All</option>
                             <option value="ct">CT</option>
-                            <option value="mr">MRI</option>
+                            <option value="mri">MRI</option>
                             <option value="xray">X-ray</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sort">Sort By:</label>
+                        <select id="sort" name="sort" class="browser-default">
+                            <option value="date">Date</option>
+                            <option value="type">Type</option>
+                            <option value="description">Description</option>
                         </select>
                     </div>
                 </div>
@@ -43,38 +53,38 @@
         const userName = "Aron"; // You can change this dynamically
         const feedItems = [
             {
-                date: '04/04/2024',
+                date: '2024-04-04',
                 type: 'CT',
                 description: 'Lung',
                 imgRef: './assets/lung_ct.png'
             },
             {
-                date: '04/03/2024',
+                date: '2024-04-03',
                 type: 'CT',
                 description: 'Lung',
                 imgRef: './assets/lung_ct.png'
             },
             {
-                date: '04/02/2024',
+                date: '2024-04-02',
+                type: 'MRI',
+                description: 'MRI',
+                imgRef: './assets/lung_ct.png'
+            },
+            {
+                date: '2024-04-01',
                 type: 'CT',
                 description: 'Lung',
                 imgRef: './assets/lung_ct.png'
             },
             {
-                date: '04/01/2024',
-                type: 'CT',
+                date: '2024-05-01',
+                type: 'MRI',
                 description: 'Lung',
                 imgRef: './assets/lung_ct.png'
             },
             {
-                date: '04/01/2024',
-                type: 'CT',
-                description: 'Lung',
-                imgRef: './assets/lung_ct.png'
-            },
-            {
-                date: '04/01/2024',
-                type: 'CT',
+                date: '2024-04-01',
+                type: 'X-ray',
                 description: 'Lung',
                 imgRef: './assets/lung_ct.png'
             }
@@ -85,9 +95,25 @@
         }
 
         function loadFeedItems() {
+            const typeFilter = document.getElementById('type').value;
+            const sortCriteria = document.getElementById('sort').value;
             const feedContainer = document.getElementById('images');
             feedContainer.innerHTML = '';
-            feedItems.forEach(item => {
+
+            let filteredFeedItems = feedItems.filter(item => typeFilter === 'all' || item.type.toLowerCase() === typeFilter.toLowerCase());
+
+            filteredFeedItems.sort((a, b) => {
+                if (sortCriteria === 'type') {
+                    return a.type.localeCompare(b.type);
+                } else if (sortCriteria === 'description') {
+                    return a.description.localeCompare(b.description);
+                } else if (sortCriteria === 'date') {
+                    return new Date(b.date) - new Date(a.date);
+                }
+                return 0;
+            });
+
+            filteredFeedItems.forEach(item => {
                 const feedItem = document.createElement('div');
                 feedItem.className = 'image-card';
                 feedItem.innerHTML = `
@@ -99,10 +125,12 @@
             });
         }
 
-        window.onload = () => {
+        document.addEventListener('DOMContentLoaded', function () {
             loadUserName();
             loadFeedItems();
-        };
+            document.getElementById('type').addEventListener('change', loadFeedItems);
+            document.getElementById('sort').addEventListener('change', loadFeedItems);
+        });
     </script>
 </body>
 
