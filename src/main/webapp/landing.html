@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <title>MedBook</title>
+
+    <style>
+        .title {
+            font-size: 36px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: center;
+            height: 100vh;
+            padding: 50px
+        }
+
+        .logo {
+            margin: auto;
+            min-width: 150px;
+            max-width: 300px;
+        }
+
+        .buttons .btn {
+            margin: 0 2vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topbar"></div>
+    <div>
+        <div class="main-content">
+            <div class="subtitle">welcome to</div>
+            <div class="title">MedBook</div>
+            <img src="assets/med.jpg" alt="MedBook Logo" class="logo">
+            <div class="buttons">
+                <button class="btn blue" onclick="location.href='login.html'">LOG IN</button>
+                <button class="btn blue" onclick="location.href='register.html'">REGISTER</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
