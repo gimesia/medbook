@@ -7,59 +7,44 @@
     <title>MedBook</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <style>
-
-    </style>
 </head>
 
 <body>
-    <div class="layout">
-        <div class="topbar">
-            <span id="user-name"></span>'s MedBook
-        </div>
-        <div class="sidebar">
-            <a href="images.html">My IMAGES</a>
-            <a href="feed.html" class="active">FEED</a>
-            <a href="connections.html">CONNECTIONS</a>
-            <a href="account.html">ACCOUNT</a>
-            <a href="#">LOGOUT</a>
-        </div>
-        <div class="content">
-            <div class="main-content" id="feed" style="display: flex; flex-direction: column">
-                <!-- Dynamic content will be inserted here -->
-            </div>
+<div class="layout">
+    <div class="topbar">
+        <span id="user-name"></span>'s MedBook
+    </div>
+    <div class="sidebar">
+        <a href="images.html">My IMAGES</a>
+        <a href="feed.html" class="active">FEED</a>
+        <a href="connections.html">CONNECTIONS</a>
+        <a href="account.html">ACCOUNT</a>
+        <a href="#">LOGOUT</a>
+    </div>
+    <div class="content">
+        <div class="main-content" id="feed">
+            <!-- Dynamic content will be inserted here -->
         </div>
     </div>
-    <script>
-        const userName = "Aron"; // You can change this dynamically
-        const feedItems = [
-            {
-                username: 'other-User1',
-                date: '04/04/2024',
-                type: 'MRI',
-                description: 'Brain',
-                imgRef: './assets/brain_mr.png'
-            },
-            {
-                username: 'other-User2',
-                date: '04/04/2024',
-                type: 'CT',
-                description: 'Lung',
-                imgRef: './assets/lung_ct.png'
-            }
-        ];
+</div>
+<script>
+    const userName = "Aron"; // You can change this dynamically
 
-        function loadUserName() {
-            document.getElementById('user-name').textContent = userName;
-        }
+    function loadUserName() {
+        document.getElementById('user-name').textContent = userName;
+    }
 
-        function loadFeedItems() {
-            const feedContainer = document.getElementById('feed');
-            feedContainer.innerHTML = '';
-            feedItems.forEach(item => {
-                const feedItem = document.createElement('div');
-                feedItem.className = 'feed-card';
-                feedItem.innerHTML = `
+    function loadFeedItems() {
+        const feedContainer = document.getElementById('feed');
+        feedContainer.innerHTML = '';
+
+        fetch('fetchFeedItems.action')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(item => {
+                    const feedItem = document.createElement('div');
+                    feedItem.className = 'feed-card';
+                    feedItem.innerHTML = `
                         <div class="feed-card-content mr-4">
                             <div class="mb-2">
                                 <h2>&lt;${item.username}&gt;</h2>
@@ -72,16 +57,18 @@
                         <div>
                             <img src="${item.imgRef}" alt="${item.imgRef}">
                         </div>
-                `;
-                feedContainer.appendChild(feedItem);
-            });
-        }
+                        `;
+                    feedContainer.appendChild(feedItem);
+                });
+            })
+            .catch(error => console.error('Error fetching feed items:', error));
+    }
 
-        window.onload = () => {
-            loadUserName();
-            loadFeedItems();
-        };
-    </script>
+    window.onload = () => {
+        loadUserName();
+        loadFeedItems();
+    };
+</script>
 </body>
 
 </html>
