@@ -88,7 +88,7 @@
                 feedItem.setAttribute('data-id', item.id);
                 feedItem.innerHTML = `
                     <img src="${item.imgRef.replace("./", "")}" alt="${item.description}">
-                    <p>ID: ${item.id} <br> User ID: ${item.user_ID} <br> Date: ${item.date} <br> Type: ${item.type}</p>
+                    <p>ID: ${item.id} <br> Date: ${item.date} <br> Type: ${item.type}</p>
                     <h3>${item.description}</h3>
                 `;
                 feedContainer.appendChild(feedItem);
@@ -144,7 +144,7 @@
                     feedItem.setAttribute('data-id', item.id);
                     feedItem.innerHTML = `
                             <img src="${item.imgRef.replace("./", "")}" alt="${item.description}">
-                            <p>ID: ${item.id} <br> User ID: ${item.user_ID} <br> Date: ${item.date} <br> Type: ${item.type}</p>
+                            <p>ID: ${item.id} <br> Date: ${item.date} <br> Type: ${item.type}</p>
                             <h3>${item.description}</h3>
                         `;
                     feedContainer.appendChild(feedItem);

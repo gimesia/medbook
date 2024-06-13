@@ -1,75 +1,170 @@
+// mockData.js
 export const mockDataImages = [
     {
         id: 1,
-        user_ID: 1,
-        date: "2024-06-13",
+        date: "2024-03-04",
         type: "CT",
-        description: "CT Scan of the brain",
-        imgRef: "assets/lung_ct.png"
+        medicalCenter: "General Hospital",
+        bodyPart: "Head",
+        diagnosis: "Migraine",
+        comments: "Patient experiences frequent headaches.",
+        imgRef: "./assets/ct.png",
+        description: "CT Scan of the head"
     },
     {
         id: 2,
-        user_ID: 1,
-        date: "2024-06-12",
+        date: "2024-04-15",
         type: "MRI",
-        description: "MRI of the spine",
-        imgRef: "assets/lung_ct.png"
+        medicalCenter: "City Clinic",
+        bodyPart: "Spine",
+        diagnosis: "Herniated Disc",
+        comments: "Patient complains of back pain.",
+        imgRef: "./assets/mri.png",
+        description: "MRI of the spine"
     },
     {
         id: 3,
-        user_ID: 1,
-        date: "2024-06-11",
+        date: "2024-02-10",
         type: "Xray",
-        description: "X-ray of the chest",
-        imgRef: "assets/lung_ct.png"
+        medicalCenter: "Downtown Medical",
+        bodyPart: "Chest",
+        diagnosis: "Pneumonia",
+        comments: "Patient has cough and fever.",
+        imgRef: "./assets/xray.png",
+        description: "Xray of the chest"
+    },
+    {
+        id: 4,
+        date: "2024-01-22",
+        type: "CT",
+        medicalCenter: "Health Center",
+        bodyPart: "Abdomen",
+        diagnosis: "Gallstones",
+        comments: "Patient experiences abdominal pain.",
+        imgRef: "./assets/ct.png",
+        description: "Ultrasound of the abdomen"
+    },
+    {
+        id: 5,
+        date: "2024-05-30",
+        type: "CT",
+        medicalCenter: "Westside Hospital",
+        bodyPart: "Leg",
+        diagnosis: "Fracture",
+        comments: "Patient injured in an accident.",
+        imgRef: "./assets/ct.png",
+        description: "CT Scan of the leg"
+    },
+    {
+        id: 6,
+        date: "2024-03-18",
+        type: "MRI",
+        medicalCenter: "Eastside Medical",
+        bodyPart: "Brain",
+        diagnosis: "Tumor",
+        comments: "Patient has frequent dizziness.",
+        imgRef: "./assets/mri.png",
+        description: "MRI of the brain"
+    },
+    {
+        id: 7,
+        date: "2024-06-05",
+        type: "Xray",
+        medicalCenter: "North Clinic",
+        bodyPart: "Arm",
+        diagnosis: "Sprain",
+        comments: "Patient fell while running.",
+        imgRef: "./assets/xray.png",
+        description: "Xray of the arm"
+    },
+    {
+        id: 8,
+        date: "2024-02-28",
+        type: "CT",
+        medicalCenter: "Central Hospital",
+        bodyPart: "Pelvis",
+        diagnosis: "Cyst",
+        comments: "Patient reports pelvic pain.",
+        imgRef: "./assets/ct.png",
+        description: "Ultrasound of the pelvis"
+    },
+    {
+        id: 9,
+        date: "2024-04-01",
+        type: "CT",
+        medicalCenter: "Regional Medical",
+        bodyPart: "Chest",
+        diagnosis: "Lung Cancer",
+        comments: "Patient is a smoker.",
+        imgRef: "./assets/ct.png",
+        description: "CT Scan of the chest"
+    },
+    {
+        id: 10,
+        date: "2024-01-15",
+        type: "MRI",
+        medicalCenter: "Community Health",
+        bodyPart: "Knee",
+        diagnosis: "ACL Tear",
+        comments: "Patient injured during sports.",
+        imgRef: "./assets/mri.png",
+        description: "MRI of the knee"
     },
     {
         id: 11,
-        user_ID: 1,
-        date: "2024-06-13",
-        type: "CT",
-        description: "CT Scan of the brain",
-        imgRef: "assets/lung_ct.png"
+        date: "2024-03-09",
+        type: "Xray",
+        medicalCenter: "Metro Clinic",
+        bodyPart: "Foot",
+        diagnosis: "Fracture",
+        comments: "Patient dropped a heavy object on foot.",
+        imgRef: "./assets/xray.png",
+        description: "Xray of the foot"
     },
     {
         id: 12,
-        user_ID: 1,
-        date: "2024-06-12",
-        type: "MRI",
-        description: "MRI of the spine",
-        imgRef: "assets/lung_ct.png"
+        date: "2024-02-20",
+        type: "CT",
+        medicalCenter: "County Hospital",
+        bodyPart: "Neck",
+        diagnosis: "Thyroid Nodule",
+        comments: "Patient has a lump in the neck.",
+        imgRef: "./assets/ct.png",
+        description: "Ultrasound of the neck"
     },
     {
         id: 13,
-        user_ID: 1,
-        date: "2024-06-11",
-        type: "Xray",
-        description: "X-ray of the chest",
-        imgRef: "assets/lung_ct.png"
-    }, {
-        id: 121,
-        user_ID: 1,
-        date: "2024-06-13",
+        date: "2024-05-15",
         type: "CT",
-        description: "CT Scan of the brain",
-        imgRef: "assets/lung_ct.png"
+        medicalCenter: "State Medical Center",
+        bodyPart: "Abdomen",
+        diagnosis: "Appendicitis",
+        comments: "Patient has severe abdominal pain.",
+        imgRef: "./assets/ct.png",
+        description: "CT Scan of the abdomen"
     },
     {
-        id: 122,
-        user_ID: 1,
-        date: "2024-06-12",
+        id: 14,
+        date: "2024-01-05",
         type: "MRI",
-        description: "MRI of the spine",
-        imgRef: "assets/lung_ct.png"
+        medicalCenter: "National Health",
+        bodyPart: "Shoulder",
+        diagnosis: "Rotator Cuff Tear",
+        comments: "Patient experiences shoulder pain.",
+        imgRef: "./assets/mri.png",
+        description: "MRI of the shoulder"
     },
     {
-        id: 123,
-        user_ID: 1,
-        date: "2024-06-11",
+        id: 15,
+        date: "2024-06-10",
         type: "Xray",
-        description: "X-ray of the chest",
-        imgRef: "assets/lung_ct.png"
-    },
+        medicalCenter: "City Hospital",
+        bodyPart: "Hand",
+        diagnosis: "Dislocation",
+        comments: "Patient's hand got caught in a door.",
+        imgRef: "./assets/xray.png",
+        description: "Xray of the hand"
+    }
 ];
 
 export const mockDataFeed = [
@@ -79,7 +174,7 @@ export const mockDataFeed = [
         date: "2024-06-13",
         type: "CT",
         description: "CT Scan of the brain",
-        imgRef: "assets/lung_ct.png"
+        imgRef: "assets/ct.png"
     },
     {
         id: 2,
@@ -87,15 +182,15 @@ export const mockDataFeed = [
         date: "2024-06-12",
         type: "MRI",
         description: "MRI of the spine",
-        imgRef: "assets/lung_ct.png"
+        imgRef: "assets/ct.png"
     },
     {
         id: 3,
         username: "AlexJohnson",
         date: "2024-06-11",
-        type: "X-ray",
-        description: "X-ray of the chest",
-        imgRef: "assets/lung_ct.png"
+        type: "Xray",
+        description: "Xray of the chest",
+        imgRef: "assets/ct.png"
     }
 ];
 
