@@ -115,7 +115,7 @@
 
             filteredFeedItems.forEach(item => {
                 const feedItem = document.createElement('div');
-                feedItem.className = 'image-card';
+                feedItem.className = 'image-card mr-3 mb-3';
                 feedItem.innerHTML = `
                     <img src="${item.imgRef}" alt="${item.description}">
                     <p>${item.date} <br> ${item.type}</p>

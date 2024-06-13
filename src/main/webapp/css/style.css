@@ -76,6 +76,9 @@ input:focus {
 .secondary-btn:hover {
     background-color: var(--secondary-dark-color);
 }
+
+/* LAYOUT */
+
 .topbar {
     background-color: var(--primary-color);
     color: white;
@@ -230,27 +233,63 @@ table.connections td:nth-child(3) {
 }
 
 /* FEED PAGE */
-
 .feed-card {
+    align-self: center;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: space-between;
     background-color: var(--surface-color);
-    margin: 0 0 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: var(--primary-text-color);
     padding: 20px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 2px 5px var(--shadow-color);
-    height: 300px;
+    min-width: 50vw;
+    max-width: 1000px;
+    margin: 1vh 0 1vh 0
 }
 
-.feed-item-content {
-    display: flex;
-    flex-direction: row;
+.feed-card:hover {
+    border: 1px solid var(--primary-color)
+}
+
+.feed-card img {
+    border-radius: 10px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    float: right;
+}
+
+.feed-card-content {
+    flex: 1;
     justify-content: space-between;
 }
 
-.feed-item img {
-    border-radius: var(--border-radius);
-    background-color: var(--border-color);
-    margin: 20px 0;
-    float: right;
+.feed-card-content h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.feed-card-content p {
+    margin: 5px 0 20px;
+    font-size: 16px;
+}
+
+.feed-card-content .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.feed-card-content .btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* IMAGES PAGE */
@@ -261,13 +300,16 @@ table.connections td:nth-child(3) {
 }
 
 .image-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: var(--surface-color);
-    border: 1px solid var(--border-color);
-    padding: 10px;
-    min-width: 20vh;
+    padding: 16px;
+    width: 32vh;
     border-radius: var(--border-radius);
-    margin: 0 2px 10px 0;
     box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.image-card:hover {
+    border: 1px solid var(--primary-color)
 }
 
 .image-card img {

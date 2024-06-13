@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedBook</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -21,7 +25,7 @@
             <a href="#">LOGOUT</a>
         </div>
         <div class="content">
-            <div class="main-content" id="feed">
+            <div class="main-content" id="feed" style="display: flex; flex-direction: column">
                 <!-- Dynamic content will be inserted here -->
             </div>
         </div>
@@ -56,16 +60,18 @@
                 const feedItem = document.createElement('div');
                 feedItem.className = 'feed-card';
                 feedItem.innerHTML = `
-                    <h2>&lt;${item.username}&gt;</h2>
-                    <div class=feed-item-content>
-                        <div class=feed-item-info>
-                            <p>${item.date} <br> ${item.type}</p>
-                            <h3>${item.description}</h3>
+                        <div class="feed-card-content mr-4">
+                            <div class="mb-2">
+                                <h2>&lt;${item.username}&gt;</h2>
+                            </div>
+                            <div class=feed-card-info>
+                                <p>${item.date} <br> ${item.type}</p>
+                                <h3>${item.description}</h3>
+                            </div>
                         </div>
                         <div>
                             <img src="${item.imgRef}" alt="${item.imgRef}">
                         </div>
-                    </div>
                 `;
                 feedContainer.appendChild(feedItem);
             });
