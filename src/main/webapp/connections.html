@@ -11,108 +11,112 @@
 </head>
 
 <body>
-<div class="topbar">
-    <span id="user-name"></span>'s MedBook
-</div>
-<div class="sidebar">
-    <a href="images.html">My IMAGES</a>
-    <a href="feed.html">FEED</a>
-    <a href="connections.html" class="active">CONNECTIONS</a>
-    <a href="account.html">ACCOUNT</a>
-    <a href="#">LOGOUT</a>
-</div>
-<div class="content">
-    <div class="main-content">
-        <div class="filter-bar">
-            <div class="filter-group">
-                <label for="role">Role:</label>
-                <select id="role" name="role" class="browser-default">
-                    <option value="all">All</option>
-                    <option value="MD">Doctor</option>
-                    <option value="patient">Patient</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="connection">Connection:</label>
-                <select id="connection" name="connection" class="browser-default">
-                    <option value="all">All</option>
-                    <option value="connected">Connected</option>
-                    <option value="not-connected">Not Connected</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="sort">Sort By:</label>
-                <select id="sort" name="sort" class="browser-default">
-                    <option value="username">Username</option>
-                    <option value="role">Role</option>
-                    <option value="connection">Connection</option>
-                </select>
-            </div>
-        </div>
-        <table class="connections striped">
-            <thead>
-            <tr>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Connection</th>
-            </tr>
-            </thead>
-            <tbody id="connectionsTable">
-            <!-- Dynamic content will be inserted here -->
-            </tbody>
-        </table>
+    <div class="topbar">
+        <span id="user-name"></span>'s MedBook
     </div>
-</div>
+    <div class="sidebar">
+        <a href="images.html">My IMAGES</a>
+        <a href="feed.html">FEED</a>
+        <a href="connections.html" class="active">CONNECTIONS</a>
+        <a href="account.html">ACCOUNT</a>
+        <a href="#">LOGOUT</a>
+    </div>
+    <div class="content">
+        <div class="main-content" id="connections">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role" class="browser-default">
+                        <option value="all">All</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="nurse">Nurse</option>
+                        <option value="patient">Patient</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="connection">Connection:</label>
+                    <select id="connection" name="connection" class="browser-default">
+                        <option value="all">All</option>
+                        <option value="connected">Connected</option>
+                        <option value="not-connected">Not Connected</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sort">Sort By:</label>
+                    <select id="sort" name="sort" class="browser-default">
+                        <option value="username">Username</option>
+                        <option value="role">Role</option>
+                        <option value="connection">Connection</option>
+                    </select>
+                </div>
+            </div>
+            <table class="connections striped">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Connection</th>
+                    </tr>
+                </thead>
+                <tbody id="connectionsTable">
+                    <!-- Dynamic content will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<!-- Include Materialize JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script>
-    const userName = "ARON"; // You can change this dynamically
+    <!-- Include Materialize JS -->
+    <script type="module">
+        import { mockConnections } from './mockData.js';
 
-    function loadUserName() {
-        document.getElementById('user-name').textContent = userName;
-    }
+        const userName = "ARON"; // You can change this dynamically
 
-    function loadConnections() {
-        const roleFilter = document.getElementById('role').value;
-        const connectionFilter = document.getElementById('connection').value;
-        const sortCriteria = document.getElementById('sort').value;
-        const tableBody = document.querySelector('#connectionsTable');
-        tableBody.innerHTML = '';
+        function loadUserName() {
+            document.getElementById('user-name').textContent = userName;
+        }
 
-        fetch('fetchConnections.action')
-            .then(response => response.json())
-            .then(data => {
-                let filteredConnections = data.filter(connection => {
-                    const roleMatches = roleFilter === 'all' || connection.role === roleFilter;
-                    const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.connected) || (connectionFilter === 'not-connected' && !connection.connected);
-                    return roleMatches && connectionMatches;
-                });
+        function populateWithMockData() {
+            const roleFilter = document.getElementById('role').value;
+            const connectionFilter = document.getElementById('connection').value;
+            const sortCriteria = document.getElementById('sort').value;
+            const tableBody = document.querySelector('#connectionsTable');
+            tableBody.innerHTML = '';
 
-                // Sort the filtered connections based on the selected sort criteria
-                filteredConnections.sort((a, b) => {
-                    if (sortCriteria === 'username') {
-                        return a.username.localeCompare(b.username);
-                    } else if (sortCriteria === 'role') {
-                        return a.role.localeCompare(b.role);
-                    } else if (sortCriteria === 'connection') {
-                        return b.connected - a.connected;
-                    }
-                    return 0;
-                });
+            const warnElement = document.createElement('div');
+            warnElement.innerHTML = "<h1>THIS IS MOCKDATA</h1>";
 
-                filteredConnections.forEach(connection => {
-                    const row = document.createElement('tr');
+            document.getElementById('connections').appendChild(warnElement);
 
-                    const usernameCell = document.createElement('td');
-                    usernameCell.textContent = connection.username;
-                    usernameCell.className = 'center-align';
-                    row.appendChild(usernameCell);
+            let filteredConnections = mockConnections.filter(connection => {
+                const roleMatches = roleFilter === 'all' || connection.role === roleFilter;
+                const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.connected) || (connectionFilter === 'not-connected' && !connection.connected);
+                return roleMatches && connectionMatches;
+            });
 
-                    const roleCell = document.createElement('td');
-                    roleCell.textContent = connection.role;
-                    roleCell.className = 'center-align';
-                    row.appendChild(roleCell);
+            // Sort the filtered connections based on the selected sort criteria
+            filteredConnections.sort((a, b) => {
+                if (sortCriteria === 'username') {
+                    return a.username.localeCompare(b.username);
+                } else if (sortCriteria === 'role') {
+                    return a.role.localeCompare(b.role);
+                } else if (sortCriteria === 'connection') {
+                    return b.connected - a.connected;
+                }
+                return 0;
+            });
+
+            filteredConnections.forEach(connection => {
+                const row = document.createElement('tr');
+
+                const usernameCell = document.createElement('td');
+                usernameCell.textContent = connection.username;
+                usernameCell.className = 'center-align';
+                row.appendChild(usernameCell);
+
+                const roleCell = document.createElement('td');
+                roleCell.textContent = connection.role;
+                roleCell.className = 'center-align';
+                row.appendChild(roleCell);
 
                 const actionCell = document.createElement('td');
                 actionCell.className = 'actions';
@@ -122,20 +126,77 @@
                 actionCell.appendChild(button);
                 row.appendChild(actionCell);
 
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching connections:', error));
-    }
+                tableBody.appendChild(row);
+            });
+        }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        loadUserName();
-        loadConnections();
-        document.getElementById('role').addEventListener('change', loadConnections);
-        document.getElementById('connection').addEventListener('change', loadConnections);
-        document.getElementById('sort').addEventListener('change', loadConnections);
-    });
-</script>
+        function loadConnections() {
+            const roleFilter = document.getElementById('role').value;
+            const connectionFilter = document.getElementById('connection').value;
+            const sortCriteria = document.getElementById('sort').value;
+            const tableBody = document.querySelector('#connectionsTable');
+            tableBody.innerHTML = '';
+
+            fetch('fetchConnections.action')
+                .then(response => response.json())
+                .then(data => {
+                    let filteredConnections = data.filter(connection => {
+                        const roleMatches = roleFilter === 'all' || connection.role === roleFilter;
+                        const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.connected) || (connectionFilter === 'not-connected' && !connection.connected);
+                        return roleMatches && connectionMatches;
+                    });
+
+                    // Sort the filtered connections based on the selected sort criteria
+                    filteredConnections.sort((a, b) => {
+                        if (sortCriteria === 'username') {
+                            return a.username.localeCompare(b.username);
+                        } else if (sortCriteria === 'role') {
+                            return a.role.localeCompare(b.role);
+                        } else if (sortCriteria === 'connection') {
+                            return b.connected - a.connected;
+                        }
+                        return 0;
+                    });
+
+                    filteredConnections.forEach(connection => {
+                        const row = document.createElement('tr');
+
+                        const usernameCell = document.createElement('td');
+                        usernameCell.textContent = connection.username;
+                        usernameCell.className = 'center-align';
+                        row.appendChild(usernameCell);
+
+                        const roleCell = document.createElement('td');
+                        roleCell.textContent = connection.role;
+                        roleCell.className = 'center-align';
+                        row.appendChild(roleCell);
+
+                        const actionCell = document.createElement('td');
+                        actionCell.className = 'actions';
+                        const button = document.createElement('button');
+                        button.textContent = connection.connected ? 'CONNECTED' : 'ADD CONNECTION';
+                        button.className = `btn ${connection.connected ? 'secondary secondary-btn' : 'primary'}`;
+                        actionCell.appendChild(button);
+                        row.appendChild(actionCell);
+
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching connections:', error);
+                    tableBody.innerHTML = '<tr><td colspan="3">Error loading connections. Using mock data instead.</td></tr>';
+                    populateWithMockData();
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserName();
+            loadConnections();
+            document.getElementById('role').addEventListener('change', loadConnections);
+            document.getElementById('connection').addEventListener('change', loadConnections);
+            document.getElementById('sort').addEventListener('change', loadConnections);
+        });
+    </script>
 </body>
 
 </html>

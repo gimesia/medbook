@@ -11,65 +11,65 @@
 </head>
 
 <body>
-<div class="layout">
-    <div class="topbar">
-        <span id="user-name"></span>'s MedBook
-    </div>
-    <div class="sidebar">
-        <a href="images.html" class="active">My IMAGES</a>
-        <a href="feed.html">FEED</a>
-        <a href="connections.html">CONNECTIONS</a>
-        <a href="account.html">ACCOUNT</a>
-        <a href="#">LOGOUT</a>
-    </div>
-    <div class="content">
-        <div class="main-content">
-            <div class="filter-bar">
-                <div class="filter-group">
-                    <label for="type">Type:</label>
-                    <select id="type" name="type" class="browser-default">
-                        <option value="all">All</option>
-                        <option value="ct">CT</option>
-                        <option value="mri">MRI</option>
-                        <option value="xray">X-ray</option>
-                    </select>
+    <div class="layout">
+        <div class="topbar">
+            <span id="user-name"></span>'s MedBook
+        </div>
+        <div class="sidebar">
+            <a href="images.html" class="active">My IMAGES</a>
+            <a href="feed.html">FEED</a>
+            <a href="connections.html">CONNECTIONS</a>
+            <a href="account.html">ACCOUNT</a>
+            <a href="#">LOGOUT</a>
+        </div>
+        <div class="content">
+            <div class="main-content" id="main-content">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label for="type">Type:</label>
+                        <select id="type" name="type" class="browser-default">
+                            <option value="all">All</option>
+                            <option value="ct">CT</option>
+                            <option value="mri">MRI</option>
+                            <option value="xray">X-ray</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sort">Sort By:</label>
+                        <select id="sort" name="sort" class="browser-default">
+                            <option value="date">Date</option>
+                            <option value="type">Type</option>
+                            <option value="description">Description</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <label for="sort">Sort By:</label>
-                    <select id="sort" name="sort" class="browser-default">
-                        <option value="date">Date</option>
-                        <option value="type">Type</option>
-                        <option value="description">Description</option>
-                    </select>
+                <div class="images-container" id="images">
+                    <!-- Dynamic content will be inserted here -->
                 </div>
-            </div>
-            <div class="images-container" id="images">
-                <!-- Dynamic content will be inserted here -->
             </div>
         </div>
     </div>
-</div>
-<script>
-    const userName = "Aron"; // You can change this dynamically
+    <script type="module">
+        import { mockDataImages } from "./mockData.js"
 
-    function loadUserName() {
-        document.getElementById('user-name').textContent = userName;
-    }
+        const userName = "Aron"; // You can change this dynamically
 
-    async function loadFeedItems() {
-        const typeFilter = document.getElementById('type').value;
-        const sortCriteria = document.getElementById('sort').value;
-        const feedContainer = document.getElementById('images');
-        feedContainer.innerHTML = '';
+        function loadUserName() {
+            document.getElementById('user-name').textContent = userName;
+        }
 
-        try {
-            let response = await fetch('/MedBook/getFeed');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            let feedItems = await response.json();
+        function populateWithMockData() {
+            const typeFilter = document.getElementById('type').value;
+            const sortCriteria = document.getElementById('sort').value;
+            const feedContainer = document.getElementById('images');
+            feedContainer.innerHTML = '';
 
-            let filteredFeedItems = feedItems.filter(item => typeFilter === 'all' || item.type.toLowerCase() === typeFilter.toLowerCase());
+            const warnElement = document.createElement('div');
+            warnElement.innerHTML = "<h1>THIS IS MOCKDATA</h1>";
+
+            document.getElementById('images').appendChild(warnElement);
+
+            let filteredFeedItems = mockDataImages.filter(item => typeFilter === 'all' || item.type.toLowerCase() === typeFilter.toLowerCase());
 
             filteredFeedItems.sort((a, b) => {
                 if (sortCriteria === 'type') {
@@ -84,27 +84,87 @@
 
             filteredFeedItems.forEach(item => {
                 const feedItem = document.createElement('div');
-                feedItem.className = 'image-card mr-3 mb-3';
+                feedItem.className = 'image-card interactive card mr-3 mb-3';
+                feedItem.setAttribute('data-id', item.id);
                 feedItem.innerHTML = `
-                        <img src="${item.imgRef.replace("./", "")}" alt="${item.description}">
-                        <p>ID: ${item.id} <br> User ID: ${item.user_ID} <br> Date: ${item.date} <br> Type: ${item.type}</p>
-                        <h3>${item.description}</h3>
-                    `;
+                    <img src="${item.imgRef.replace("./", "")}" alt="${item.description}">
+                    <p>ID: ${item.id} <br> User ID: ${item.user_ID} <br> Date: ${item.date} <br> Type: ${item.type}</p>
+                    <h3>${item.description}</h3>
+                `;
                 feedContainer.appendChild(feedItem);
             });
-        } catch (error) {
-            console.error('Error fetching feed items:', error);
-            feedContainer.innerHTML = '<p>Error loading feed items. Please try again later.</p>';
         }
-    }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        loadUserName();
-        loadFeedItems();
-        document.getElementById('type').addEventListener('change', loadFeedItems);
-        document.getElementById('sort').addEventListener('change', loadFeedItems);
-    });
-</script>
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserName();
+            loadFeedItems();
+            document.getElementById('type').addEventListener('change', loadFeedItems);
+            document.getElementById('sort').addEventListener('change', loadFeedItems);
+        });
+
+        function addCardClickListeners() {
+            const cards = document.querySelectorAll('.image-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const imageId = this.getAttribute('data-id');
+                    window.location.href = `image.html?id=${imageId}`;
+                });
+            });
+        }
+
+        async function loadFeedItems() {
+            const typeFilter = document.getElementById('type').value;
+            const sortCriteria = document.getElementById('sort').value;
+            const feedContainer = document.getElementById('images');
+            feedContainer.innerHTML = '';
+
+            try {
+                let response = await fetch('/MedBook/getFeed');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                let feedItems = await response.json();
+
+                let filteredFeedItems = feedItems.filter(item => typeFilter === 'all' || item.type.toLowerCase() === typeFilter.toLowerCase());
+
+                filteredFeedItems.sort((a, b) => {
+                    if (sortCriteria === 'type') {
+                        return a.type.localeCompare(b.type);
+                    } else if (sortCriteria === 'description') {
+                        return a.description.localeCompare(b.description);
+                    } else if (sortCriteria === 'date') {
+                        return new Date(b.date) - new Date(a.date);
+                    }
+                    return 0;
+                });
+
+                filteredFeedItems.forEach(item => {
+                    const feedItem = document.createElement('div');
+                    feedItem.className = 'image-card interactive card mr-3 mb-3';
+                    feedItem.setAttribute('data-id', item.id);
+                    feedItem.innerHTML = `
+                            <img src="${item.imgRef.replace("./", "")}" alt="${item.description}">
+                            <p>ID: ${item.id} <br> User ID: ${item.user_ID} <br> Date: ${item.date} <br> Type: ${item.type}</p>
+                            <h3>${item.description}</h3>
+                        `;
+                    feedContainer.appendChild(feedItem);
+                });
+                addCardClickListeners();
+            } catch (error) {
+                console.error('Error fetching feed items:', error);
+                feedContainer.innerHTML = '<p>Error loading feed items. Using mock data instead.</p>';
+                populateWithMockData();
+                addCardClickListeners(); // Ensure listeners are added to mock data cards too
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserName();
+            loadFeedItems();
+            document.getElementById('type').addEventListener('change', loadFeedItems);
+            document.getElementById('sort').addEventListener('change', loadFeedItems);
+        });
+    </script>
 </body>
 
 </html>
