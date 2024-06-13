@@ -1,19 +1,19 @@
-package com.example;
+package com.example.models;
 
 import java.util.Date;
 
-public class Student {
+public class Connection{
     private int connectionId;
     private int userId;
     private final Date createdAt;
 
     // Default constructor
-    public Student() {
+    public Connection() {
         this.createdAt = new Date();
     }
 
     // Parameterized constructor
-    public Student(int connectionId, int userId, Date createdAt) {
+    public Connection(int connectionId, int userId, Date createdAt) {
         this.connectionId = connectionId;
         this.userId = userId;
         this.createdAt = createdAt;

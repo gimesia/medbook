@@ -21,13 +21,24 @@ public class DBUtil {
             dbPassword = properties.getProperty("jdbc.password");
             dbDriver = properties.getProperty("jdbc.driverClassName");
 
+            System.out.println("Loaded properties:");
+            System.out.println("URL: " + dbUrl);
+            System.out.println("Username: " + dbUsername);
+            System.out.println("Password: " + dbPassword);
+            System.out.println("Driver: " + dbDriver);
+
             Class.forName(dbDriver);
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException("Failed to load database properties", e);
         }
     }
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error connecting to the database", e);
+        }
     }
 }

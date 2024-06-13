@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-    <package name="default" extends="struts-default">
+    <package name="default" extends="struts-default,json-default">
+        <!-- User actions -->
+        <action name="register" class="com.example.actions.UserAction" method="register">
+            <result name="success">/success.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="login" class="com.example.actions.UserAction" method="login">
+            <result name="success">/welcome.jsp</result>
+            <result name="error">/login.jsp</result>
+        </action>
+
+        <!-- Medical image actions -->
         <action name="listImages" class="com.example.actions.MedicalImageAction" method="list">
             <result name="success">/list.jsp</result>
         </action>
@@ -13,6 +24,32 @@
         </action>
         <action name="deleteImage" class="com.example.actions.MedicalImageAction" method="delete">
             <result name="success">/delete.jsp</result>
+        </action>
+
+        <!-- Feed action for images.html -->
+        <action name="getFeed" class="com.example.actions.FeedAction">
+            <result type="json"/>
+        </action>
+
+        <!-- New Feed action for feed.html -->
+        <action name="fetchFeedItems" class="com.example.actions.FeedPageAction" method="execute">
+            <result name="success" type="json">
+                <param name="root">feedItems</param>
+            </result>
+        </action>
+
+        <!-- New Connections action for connections.html -->
+        <action name="fetchConnections" class="com.example.actions.ConnectionsAction" method="execute">
+            <result name="success" type="json">
+                <param name="root">connections</param>
+            </result>
+        </action>
+
+        <!-- New Account action for account.html -->
+        <action name="fetchAccountInfo" class="com.example.actions.AccountAction" method="execute">
+            <result name="success" type="json">
+                <param name="root">username,email,role</param>
+            </result>
         </action>
     </package>
 </struts>

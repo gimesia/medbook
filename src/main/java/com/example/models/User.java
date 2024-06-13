@@ -6,7 +6,8 @@ public class User {
     private int userId;
     private String username;
     private String passwordHash;
-    private final Date createdAt;
+    private Date createdAt;
+    private String role;
 
     // Default constructor
     public User() {
@@ -14,14 +15,15 @@ public class User {
     }
 
     // Parameterized constructor
-    public User(int userId, String username, String passwordHash, Date createdAt) {
+    public User(int userId, String username, String passwordHash, Date createdAt, String role) {
         this.userId = userId;
         this.username = username;
         this.passwordHash = passwordHash;
         this.createdAt = createdAt;
+        this.role = role;
     }
 
-    // Getters and Setters
+    // Getters and setters
     public int getUserId() {
         return userId;
     }
@@ -50,14 +52,15 @@ public class User {
         return createdAt;
     }
 
-    // Override toString method for better logging and debugging
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", passwordHash='" + passwordHash + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
