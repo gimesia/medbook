@@ -2,28 +2,16 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
     <package name="default" extends="struts-default,json-default">
-        <!-- User actions -->
-        <action name="register" class="com.example.actions.UserAction" method="register">
-            <result name="success">/success.jsp</result>
-            <result name="error">/error.jsp</result>
-        </action>
-        <action name="login" class="com.example.actions.UserAction" method="login">
-            <result name="success">/welcome.jsp</result>
-            <result name="error">/login.jsp</result>
+        <action name="">
+            <result>/landing.html</result>
         </action>
 
-        <!-- Medical image actions -->
-        <action name="listImages" class="com.example.actions.MedicalImageAction" method="list">
-            <result name="success">/list.jsp</result>
+        <action name="login">
+            <result>/login.html</result>
         </action>
-        <action name="addImage" class="com.example.actions.MedicalImageAction" method="add">
-            <result name="success">/add.jsp</result>
-        </action>
-        <action name="updateImage" class="com.example.actions.MedicalImageAction" method="update">
-            <result name="success">/update.jsp</result>
-        </action>
-        <action name="deleteImage" class="com.example.actions.MedicalImageAction" method="delete">
-            <result name="success">/delete.jsp</result>
+
+        <action name="register">
+            <result>/register.html</result>
         </action>
 
         <!-- Feed action for images.html -->
