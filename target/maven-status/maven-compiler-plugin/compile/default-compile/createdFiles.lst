@@ -1,7 +1,0 @@
-com\example\dao\MedicalImageDao.class
-com\example\dao\MedicalImageDaoImpl.class
-com\example\models\MedicalImage.class
-com\example\actions\MedicalImageAction.class
-com\example\services\MedicalImageService.class
-com\example\actions\HelloAction.class
-com\example\utils\DBUtil.class
