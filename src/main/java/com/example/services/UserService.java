@@ -7,11 +7,15 @@ import com.example.models.User;
 public class UserService {
     private UserDao userDao = new UserDaoImpl();
 
-    public void save(User user) {
-        userDao.save(user);
+    public void createUser(User user) {
+        userDao.createUser(user);
     }
 
-    public User findByUsername(String username) {
-        return userDao.findByUsername(username);
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username);
+    }
+
+    public User getUserById(int id) {
+        return userDao.getUserById(id);
     }
 }
