@@ -41,5 +41,20 @@
                 <param name="root">username,role</param>
             </result>
         </action>
+
+
+        <action name="images">
+            <result>/images.html</result>
+        </action>
+
+        <action name="user-info" class="com.example.actions.GetUserInfoAction">
+            <result name="success" type="json">
+                <param name="root">user</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">errorMessage</param>
+            </result>
+        </action>
+        
     </package>
 </struts>

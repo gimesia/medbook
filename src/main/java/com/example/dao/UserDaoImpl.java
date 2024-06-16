@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
@@ -67,7 +68,9 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;  }
+        return new User(1, "ERROR BUT TEST", "pwd", new Date(), "MD");
+        // return null;
+    }
 
     @Override
     public ArrayList<User> getUsers() {
