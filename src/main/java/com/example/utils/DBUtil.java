@@ -1,11 +1,15 @@
 package com.example.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBUtil {
+    private static final Logger logger = LoggerFactory.getLogger(DBUtil.class);
     private static String dbUrl;
     private static String dbUsername;
     private static String dbPassword;
@@ -21,15 +25,15 @@ public class DBUtil {
             dbPassword = properties.getProperty("jdbc.password");
             dbDriver = properties.getProperty("jdbc.driverClassName");
 
-            System.out.println("Loaded properties:");
-            System.out.println("URL: " + dbUrl);
-            System.out.println("Username: " + dbUsername);
-            System.out.println("Password: " + dbPassword);
-            System.out.println("Driver: " + dbDriver);
+            logger.info("Loaded properties:");
+            logger.info("URL: {}", dbUrl);
+            logger.info("Username: {}", dbUsername);
+            logger.info("Password: {}", dbPassword);
+            logger.info("Driver: {}", dbDriver);
 
             Class.forName(dbDriver);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Failed to load database properties", e);
             throw new RuntimeException("Failed to load database properties", e);
         }
     }
@@ -38,6 +42,7 @@ public class DBUtil {
         try {
             return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
         } catch (SQLException e) {
+            logger.error("Error connecting to the database", e);
             throw new RuntimeException("Error connecting to the database", e);
         }
     }

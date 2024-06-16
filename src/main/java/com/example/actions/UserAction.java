@@ -1,45 +1,29 @@
 package com.example.actions;
 
+import com.example.dao.UserDao;
+import com.example.dao.UserDaoImpl;
 import com.example.models.User;
-import com.example.services.UserService;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.struts2.interceptor.SessionAware;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class UserAction extends ActionSupport {
-    private UserService userService = new UserService();
+import java.util.Map;
+
+public class UserAction extends ActionSupport implements SessionAware {
+    private static final Logger logger = LoggerFactory.getLogger(UserAction.class);
+
     private String username;
     private String password;
+    private String role;
+    private UserDao userDao;
+    private Map<String, Object> session;
 
-    public String register() {
-        if (username == null || password == null) {
-            addActionError("Username and Password are required.");
-            return ERROR;
-        }
-
-        User user = new User();
-        user.setUsername(username);
-        user.setPasswordHash(DigestUtils.sha256Hex(password));
-        user.setRole("user");
-        userService.save(user);
-        return SUCCESS;
+    public UserAction() {
+        userDao = new UserDaoImpl();
     }
 
-    public String login() {
-        if (username == null || password == null) {
-            addActionError("Username and Password are required.");
-            return ERROR;
-        }
-
-        User user = userService.findByUsername(username);
-        if (user != null && user.getPasswordHash().equals(DigestUtils.sha256Hex(password))) {
-            return SUCCESS;
-        } else {
-            addActionError("Invalid Username or Password.");
-            return ERROR;
-        }
-    }
-
-    // Getters and setters for username and password
+    // Getter and setter methods for username, password, and role
     public String getUsername() {
         return username;
     }
@@ -54,5 +38,50 @@ public class UserAction extends ActionSupport {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
+    }
+
+    public String register() {
+        try {
+            User user = new User();
+            user.setUsername(username);
+            user.setPasswordHash(password); // Assume hashing is done elsewhere
+            user.setRole(role);
+
+            userDao.save(user);
+            return SUCCESS;
+        } catch (Exception e) {
+            logger.error("Error during registration", e);
+            return ERROR;
+        }
+    }
+
+    public String login() {
+        try {
+            User user = userDao.findByUsername(username);
+            if (user != null && user.getPasswordHash().equals(password)) { // Assume password is hashed
+                session.put("user", user);
+                return SUCCESS;
+            } else {
+                addActionError("Invalid username or password.");
+                return ERROR;
+            }
+        } catch (Exception e) {
+            logger.error("Error during login", e);
+            addActionError("An error occurred during login.");
+            return ERROR;
+        }
     }
 }

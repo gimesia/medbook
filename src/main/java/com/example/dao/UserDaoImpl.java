@@ -2,6 +2,8 @@ package com.example.dao;
 
 import com.example.models.User;
 import com.example.utils.DBUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDao {
+    private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+
     @Override
     public void save(User user) {
         String query = "INSERT INTO User (username, password_hash, created_at, role) VALUES (?, ?, ?, ?)";
@@ -16,11 +20,10 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPasswordHash());
-            stmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
             stmt.setString(4, user.getRole());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error saving user", e);
         }
     }
 
@@ -40,7 +43,7 @@ public class UserDaoImpl implements UserDao {
                 return user;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error finding user by username", e);
         }
         return null;
     }
