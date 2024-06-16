@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.example.models.User;
 
 public interface UserDao {
-    void save(User user);
-    User findByUsername(String username);
+    void createUser(User user);
+    User getUserByUsername(String username);
+    User getUserById(int id);
+    ArrayList<User> getAllUsers();
 }

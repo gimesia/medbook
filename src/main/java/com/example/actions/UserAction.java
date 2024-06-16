@@ -60,7 +60,7 @@ public class UserAction extends ActionSupport implements SessionAware {
             user.setPasswordHash(password); // Assume hashing is done elsewhere
             user.setRole(role);
 
-            userDao.save(user);
+            userDao.createUser(user);
             return SUCCESS;
         } catch (Exception e) {
             logger.error("Error during registration", e);
@@ -70,7 +70,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 
     public String login() {
         try {
-            User user = userDao.findByUsername(username);
+            User user = userDao.getUserByUsername(username);
             if (user != null && user.getPasswordHash().equals(password)) { // Assume password is hashed
                 session.put("user", user);
                 return SUCCESS;

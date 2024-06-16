@@ -16,32 +16,6 @@
             <result name="error">/register.html</result>
         </action>
 
-        <!-- Feed action for images.html -->
-        <action name="getFeed" class="com.example.actions.FeedAction">
-            <result type="json"/>
-        </action>
-
-        <!-- New Feed action for feed.html -->
-        <action name="fetchFeedItems" class="com.example.actions.FeedPageAction" method="execute">
-            <result name="success" type="json">
-                <param name="root">feedItems</param>
-            </result>
-        </action>
-
-        <!-- New Connections action for connections.html -->
-        <action name="fetchConnections" class="com.example.actions.ConnectionsAction" method="execute">
-            <result name="success" type="json">
-                <param name="root">connections</param>
-            </result>
-        </action>
-
-        <!-- New Account action for account.html -->
-        <action name="fetchAccountInfo" class="com.example.actions.AccountAction" method="execute">
-            <result name="success" type="json">
-                <param name="root">username,role</param>
-            </result>
-        </action>
-
 
         <action name="images">
             <result>/images.html</result>

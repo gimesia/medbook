@@ -22,7 +22,7 @@ public class GetAllUsersAction extends ActionSupport {
     public String execute() {
         try {
             UserDao userDao = new UserDaoImpl();
-            users = userDao.getUsers();
+            users = userDao.getAllUsers();
             if (users != null && !users.isEmpty()) {
                 return SUCCESS;
             } else {

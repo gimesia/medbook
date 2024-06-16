@@ -66,14 +66,14 @@ public class UserDaoImpl implements UserDao {
                 return user;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error finding user by username", e);
             return new User(1, "ERROR BUT TEST", "pwd", new Date(), "MD");
         }
         return null;
     }
 
     @Override
-    public ArrayList<User> getUsers() {
+    public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
         String query = "SELECT * FROM User";
         try (Connection conn = DBUtil.getConnection();
@@ -88,7 +88,7 @@ public class UserDaoImpl implements UserDao {
                 users.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error finding user by username", e);
         }
         return users;
     }
