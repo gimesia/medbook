@@ -1,4 +1,4 @@
-package com.example.actions;
+/* package com.example.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ConnectionsAction extends ActionSupport {
+public class ConnectionAction extends ActionSupport {
 
     private List<Map<String, Object>> connections;
 
-    public ConnectionsAction() {
+    public ConnectionAction() {
         connections = new ArrayList<>();
         Map<String, Object> connection1 = new HashMap<>();
         connection1.put("username", "USERNAME1");
@@ -36,3 +36,4 @@ public class ConnectionsAction extends ActionSupport {
         return SUCCESS;
     }
 }
+*/
