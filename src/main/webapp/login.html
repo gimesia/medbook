@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,8 +36,6 @@
             z-index: -1;
         }
 
-
-
         .logo {
             margin: 20px 0;
         }
@@ -62,14 +59,14 @@
         }
     </style>
 </head>
-
 <body>
-    <div class="topbar"></div>
-    <div class="full-height-center">
-        <div>
-            <div class="title">MedBook</div>
-            <div class="login-box">
-                <div class="login-title">Login</div>
+<div class="topbar"></div>
+<div class="full-height-center">
+    <div>
+        <div class="title">MedBook</div>
+        <div class="login-box">
+            <div class="login-title">Login</div>
+            <form action="login-user" method="post">
                 <div class="mb-4 outline">
                     <label for="username" class="mr-2">Username:</label>
                     <input type="text" id="username" name="username">
@@ -79,12 +76,12 @@
                     <input type="password" id="password" name="password">
                 </div>
                 <div class="buttons">
-                    <button class="btn blue" onclick="location.href='landing.html'">BACK</button>
-                    <button class="btn blue" onclick="location.href='#'">LOGIN</button>
+                    <button type="button" class="btn blue" onclick="location.href='landing.html'">BACK</button>
+                    <button type="submit" class="btn blue">LOGIN</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 </body>
-
 </html>
