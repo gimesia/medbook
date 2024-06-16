@@ -47,14 +47,53 @@
             <result>/images.html</result>
         </action>
 
-        <action name="user-info" class="com.example.actions.GetUserInfoAction">
+
+        <!-- USER -->
+        <action name="user-by-id" class="com.example.actions.user.GetUserInfoByIdAction">
             <result name="success" type="json">
                 <param name="root">user</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">id</param>
+            </result>
+        </action>
+
+        <action name="user-by-username" class="com.example.actions.user.GetUserInfoByUsernameAction">
+            <result name="success" type="json">
+                <param name="root">user</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">username</param>
+            </result>
+        </action>
+
+        <action name="all-users" class="com.example.actions.user.GetAllUsersAction">
+            <result name="success" type="json">
+                <param name="root">users</param>
             </result>
             <result name="error" type="json">
                 <param name="root">errorMessage</param>
             </result>
         </action>
+
+        <!-- IMAGES -->
+        <action name="images-by-user-id" class="com.example.actions.image.ImagesByUserIdAction">
+            <result name="success" type="json">
+                <param name="root">images</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">errorMessage</param>
+            </result>
+        </action>
+        
+        <action name="images-for-user-id-list" class="com.example.actions.image.ImagesForUserIdListAction">
+            <result name="success" type="json">
+                <param name="root">images</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">errorMessage</param>
+            </result>
+        </action>        
         
     </package>
 </struts>

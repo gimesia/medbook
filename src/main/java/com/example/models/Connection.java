@@ -2,24 +2,25 @@ package com.example.models;
 
 import java.util.Date;
 
-public class Connection{
+public class Connection {
     private int connectionId;
-    private int userId;
-    private final Date createdAt;
+    private int user1Id;
+    private int user2Id;
+    private Date createdAt;
 
     // Default constructor
     public Connection() {
-        this.createdAt = new Date();
     }
 
     // Parameterized constructor
-    public Connection(int connectionId, int userId, Date createdAt) {
+    public Connection(int connectionId, int user1Id, int user2Id, Date createdAt) {
         this.connectionId = connectionId;
-        this.userId = userId;
+        this.user1Id = user1Id;
+        this.user2Id = user2Id;
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
+    // Getters and setters
     public int getConnectionId() {
         return connectionId;
     }
@@ -28,24 +29,37 @@ public class Connection{
         this.connectionId = connectionId;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUser1Id() {
+        return user1Id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser1Id(int user1Id) {
+        this.user1Id = user1Id;
+    }
+
+    public int getUser2Id() {
+        return user2Id;
+    }
+
+    public void setUser2Id(int user2Id) {
+        this.user2Id = user2Id;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    // Override toString method for better logging and debugging
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    // toString method
     @Override
     public String toString() {
-        return "Student{" +
+        return "Connection{" +
                 "connectionId=" + connectionId +
-                ", userId=" + userId +
+                ", user1Id=" + user1Id +
+                ", user2Id=" + user2Id +
                 ", createdAt=" + createdAt +
                 '}';
     }
