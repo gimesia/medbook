@@ -67,9 +67,9 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return new User(1, "ERROR BUT TEST", "pwd", new Date(), "MD");
         }
-        return new User(1, "ERROR BUT TEST", "pwd", new Date(), "MD");
-        // return null;
+        return null;
     }
 
     @Override

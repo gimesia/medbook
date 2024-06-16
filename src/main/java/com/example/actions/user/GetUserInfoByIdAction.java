@@ -1,11 +1,11 @@
-package com.example.actions;
+package com.example.actions.user;
 
 import com.example.dao.UserDao;
 import com.example.dao.UserDaoImpl;
 import com.example.models.User;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class GetUserInfoAction extends ActionSupport {
+public class GetUserInfoByIdAction extends ActionSupport {
     private int id;
     private User user;
     private String errorMessage;

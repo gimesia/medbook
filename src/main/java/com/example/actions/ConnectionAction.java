@@ -36,4 +36,4 @@ public class ConnectionAction extends ActionSupport {
         return SUCCESS;
     }
 }
-*/
+ */
