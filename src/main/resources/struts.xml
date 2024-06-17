@@ -6,13 +6,13 @@
             <result>/landing.html</result>
         </action>
 
-        <action name="login-user" class="com.example.actions.UserAction" method="login">
+        <action name="login-user" class="com.example.actions.user.GetUserInfoByUsernameAction" method="login">
             <result name="success">/images.html</result>
             <result name="error">/login.html</result>
         </action>
 
-        <action name="register" class="com.example.actions.UserAction" method="register">
-            <result name="success">/success.html</result>
+        <action name="register-user" class="com.example.actions.user.CreateUserAction" method="register">
+            <result name="success">/login.html</result>
             <result name="error">/register.html</result>
         </action>
 
