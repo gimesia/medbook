@@ -94,7 +94,16 @@
                 <param name="root">connections</param>
             </result>
             <result name="error" type="json">
-                <param name="root">id</param>
+                <param name="root">errorMessage</param>
+            </result>
+        </action>
+
+        <action name="connections-feed-by-user-id" class="com.example.actions.connection.GetConnectionsFeedByUserIdAction">
+            <result name="success" type="json">
+                <param name="root">connectionFeedItems</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">errorMessage</param>
             </result>
         </action>
 

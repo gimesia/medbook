@@ -19,72 +19,72 @@ public class GetConnectionsFeedByUserIdAction extends ActionSupport {
     private int userId;
     private ArrayList<ConnectionFeedItem> connectionFeedItems;
     private String errorMessage;
-      
+
     public int getUserId() {
-         return userId;
+        return userId;
     }
 
     public void setUserId(int userId) {
-         this.userId = userId;
+        this.userId = userId;
     }
-   
+
     public ArrayList<ConnectionFeedItem> getConnectionFeedItems() {
         return connectionFeedItems;
     }
-    
+
     public void setConnectionFeedItems(ArrayList<ConnectionFeedItem> connectionFeedItems) {
         this.connectionFeedItems = connectionFeedItems;
     }
-
 
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 
     public String execute() {
+        connectionFeedItems = new ArrayList<>();
         try {
             UserDao userDao = new UserDaoImpl();
             ConnectionDao connectionDao = new ConnectionDaoImpl();
             ArrayList<User> allUsers = userDao.getAllUsers();
             ArrayList<ConnectionMdl> connections = connectionDao.getConnectionsByUserId(userId);
-            
-
 
             if (allUsers != null && !allUsers.isEmpty()) {
-                 for (User user : allUsers) {
-                    ConnectionFeedItem connectionFeedItem = new ConnectionFeedItem();
-
-                    if (user.getUserId() == userId) {
-                        continue;
-                    }
-
-                    connectionFeedItem.setRole(user.getRole());
-                    connectionFeedItem.setUsername(user.getUsername());
-                    connectionFeedItem.setIsConnected(0);
-
-                    for (ConnectionMdl connectionMdl: connections) {
-                        if ((connectionMdl.getUser1Id() == userId) && (connectionMdl.getUser2Id() == user.getUserId()))  {
-                            connectionFeedItem.setIsConnected(1);
-                            break;
+                if (connections != null && !connections.isEmpty()) {
+                    for (User user : allUsers) {
+                        if (user.getUserId() == userId) {
+                            continue; // Skip the user itself
                         }
-                        if ((connectionMdl.getUser1Id() == user.getUserId()) && (connectionMdl.getUser2Id() == userId))  {
-                            connectionFeedItem.setIsConnected(1);
-                            break;
+
+                        ConnectionFeedItem connectionFeedItem = new ConnectionFeedItem();
+                        connectionFeedItem.setRole(user.getRole());
+                        connectionFeedItem.setUsername(user.getUsername());
+                        connectionFeedItem.setIsConnected(0);
+                        connectionFeedItem.setUserId(user.getUserId());
+
+                        for (ConnectionMdl connectionMdl : connections) {
+                            if ((connectionMdl.getUser1Id() == userId && connectionMdl.getUser2Id() == user.getUserId()) ||
+                                (connectionMdl.getUser1Id() == user.getUserId() && connectionMdl.getUser2Id() == userId)) {
+                                connectionFeedItem.setIsConnected(1);
+                                break;
+                            }
                         }
+
+                        connectionFeedItems.add(connectionFeedItem);
                     }
-                    connectionFeedItems.add(connectionFeedItem);
-                 }
-                 return SUCCESS;
-             } else {
-                 errorMessage = "No connections found for user";
-                 return ERROR;
-             }
-         } catch (Exception e) {
-             logger.error("Error finding user by userId", e);
-             errorMessage = "An error occurred while fetching connections";
-             return ERROR;
-         }
-     }
-     
+                }
+                return SUCCESS;
+            } else {
+                errorMessage = "No connections found for user";
+                return ERROR;
+            }
+        } catch (Exception e) {
+            logger.error("Error finding user by userId", e);
+            errorMessage = "An error occurred while fetching connections";
+            return ERROR;
+        }
+    }
 }
