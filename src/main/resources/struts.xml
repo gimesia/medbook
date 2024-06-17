@@ -89,7 +89,23 @@
         
 
         <!-- CONNECTION -->
+        <action name="connections-by-user-id" class="com.example.actions.connection.GetConnectionsByUserIdAction">
+            <result name="success" type="json">
+                <param name="root">connections</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">id</param>
+            </result>
+        </action>
 
+        <action name="add-connection" class="com.example.actions.connection.AddConnectionAction">
+            <result name="success" type="json">
+                <param name="root">successMessage</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">errorMessage</param>
+            </result>
+        </action>
 
         <!-- FEED -->
 
