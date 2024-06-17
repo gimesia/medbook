@@ -11,32 +11,50 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class ImageDaoImpl implements ImageDao {
-
    @Override
-   public Image getImageById(int id) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'getImageById'");
+   public Image getImageById(int imageId) {
+       String query = "SELECT * FROM Image WHERE image_id = ?";
+       try (Connection conn = DBUtil.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query)) {
+           stmt.setInt(1, imageId);
+           ResultSet rs = stmt.executeQuery();
+           if (rs.next()) {
+               Image image = new Image();
+               image.setImageId(rs.getInt("image_id"));
+               image.setUserId(rs.getInt("user_id"));
+               image.setImageReference(rs.getString("image_reference"));
+               image.setDevice(rs.getString("device"));
+               image.setBodypart(rs.getString("bodypart"));
+               image.setDiagnosis(rs.getString("diagnosis"));
+               image.setDescription(rs.getString("description"));
+               image.setIsPrivate(rs.getBoolean("is_private"));
+               image.setCreatedAt(rs.getDate("created_at"));
+               return image;
+           }
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+       return null;
    }
-
    @Override
    public ArrayList<Image> getImagesForUserId(int userId) {
       ArrayList<Image> images = new ArrayList<>();
-      String query = "SELECT * FROM Image WHERE user_id = ?";
+      String query = "SELECT * FROM Image WHERE user_id = ";
       try (Connection conn = DBUtil.getConnection();
          PreparedStatement stmt = conn.prepareStatement(query)) {
          stmt.setInt(1, userId);
          ResultSet rs = stmt.executeQuery();
          while (rs.next()) {
             Image image = new Image();
-            image.imageId = (rs.getInt("image_id"));
-            image.userId = (rs.getInt("user_id"));
-            image.imageReference = (rs.getString("image_reference"));
-            image.device = (rs.getString("device"));
-            image.bodypart = (rs.getString("bodypart"));
-            image.diagnosis = (rs.getString("diagnosis"));
-            image.description = (rs.getString("description"));
-            image.isPrivate = (rs.getBoolean("is_private"));
-            image.createdAt = (rs.getDate("created_at"));
+            image.setImageId((rs.getInt("image_id")));
+            image.setUserId((rs.getInt("user_id")));
+            image.setImageReference((rs.getString("image_reference")));
+            image.setDevice((rs.getString("device")));
+            image.setBodypart((rs.getString("bodypart")));
+            image.setDiagnosis((rs.getString("diagnosis")));
+            image.setDescription((rs.getString("description")));
+            image.setIsPrivate((rs.getBoolean("is_private")));
+            image.setCreatedAt((rs.getDate("created_at")));
             images.add(image);
          }
       } catch (SQLException e) {
@@ -60,15 +78,15 @@ public class ImageDaoImpl implements ImageDao {
          ResultSet rs = stmt.executeQuery();
          while (rs.next()) {
             Image image = new Image();
-            image.imageId = (rs.getInt("image_id"));
-            image.userId = (rs.getInt("user_id"));
-            image.imageReference = (rs.getString("image_reference"));
-            image.device = (rs.getString("device"));
-            image.bodypart = (rs.getString("bodypart"));
-            image.diagnosis = (rs.getString("diagnosis"));
-            image.description = (rs.getString("description"));
-            image.isPrivate = (rs.getBoolean("is_private"));
-            image.createdAt = (rs.getDate("created_at"));
+            image.setImageId((rs.getInt("image_id")));
+            image.setUserId((rs.getInt("user_id")));
+            image.setImageReference((rs.getString("image_reference")));
+            image.setDevice((rs.getString("device")));
+            image.setBodypart((rs.getString("bodypart")));
+            image.setDiagnosis((rs.getString("diagnosis")));
+            image.setDescription((rs.getString("description")));
+            image.setIsPrivate((rs.getBoolean("is_private")));
+            image.setCreatedAt((rs.getDate("created_at")));
             images.add(image);
          }
       } catch (SQLException e) {
@@ -77,11 +95,19 @@ public class ImageDaoImpl implements ImageDao {
       return images;
    }
 
+
    @Override
-   public Image toggleImagePublicById(int id) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'toggleImagePublicById'");
-   }
+   public void updateImage(Image image) {
+      String query = "UPDATE Image SET is_private = ? WHERE image_id = ?";
+      try (Connection conn = DBUtil.getConnection();
+           PreparedStatement stmt = conn.prepareStatement(query)) {
+          stmt.setBoolean(1, image.isPrivate());
+          stmt.setInt(2, image.getImageId());
+          stmt.executeUpdate();
+      } catch (SQLException e) {
+          e.printStackTrace();
+      }
+  }
 
    @Override
    public void editImage(Image image) {

@@ -56,18 +56,43 @@
                 <param name="root">images</param>
             </result>
             <result name="error" type="json">
-                <param name="root">errorMessage</param>
+                <param name="root">userId</param>
             </result>
         </action>
         
-        <action name="images-for-user-id-list" class="com.example.actions.image.ImagesForUserIdListAction">
+        <action name="images-by-user-id-list" class="com.example.actions.image.ImagesByUserIdListAction">
             <result name="success" type="json">
                 <param name="root">images</param>
             </result>
             <result name="error" type="json">
-                <param name="root">errorMessage</param>
+                <param name="root">userIds</param>
             </result>
-        </action>        
+        </action>
+        
+        <action name="image-by-id" class="com.example.actions.image.GetImageByIdAction">
+            <result name="success" type="json">
+                <param name="root">image</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">imageId</param>
+            </result>
+        </action> 
+
+        <action name="toggle-image-privacy" class="com.example.actions.image.UpdateImagePrivacyAction">
+            <result name="success" type="json">
+                <param name="root"></param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">imageId</param>
+            </result>
+        </action>
+        
+
+        <!-- CONNECTION -->
+
+
+        <!-- FEED -->
+
         
     </package>
 </struts>

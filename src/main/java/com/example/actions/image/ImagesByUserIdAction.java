@@ -7,7 +7,12 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ImagesByUserIdAction extends ActionSupport {
+   private static final Logger logger = LoggerFactory.getLogger(ImagesByUserIdAction.class);
+  
     private int userId;
     private List<Image> images;
     private String errorMessage;

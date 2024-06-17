@@ -2,7 +2,6 @@ package com.example.actions.image;
 
 import com.example.dao.ImageDao;
 import com.example.dao.ImageDaoImpl;
-import com.example.dao.UserDaoImpl;
 import com.example.models.Image;
 import com.opensymphony.xwork2.ActionSupport;
 import org.slf4j.Logger;
@@ -10,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-public class ImagesForUserIdListAction extends ActionSupport {
-    private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+public class ImagesByUserIdListAction extends ActionSupport {
+    private static final Logger logger = LoggerFactory.getLogger(ImagesByUserIdListAction.class);
 
     private ArrayList<Integer> userIds;
     private ArrayList<Image> images;
