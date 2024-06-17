@@ -2,258 +2,270 @@
 export const mockDataImages = [
     {
         id: 1,
-        date: "2024-03-04",
-        type: "CT",
-        medicalCenter: "General Hospital",
-        bodyPart: "Head",
+        userId: 101,
+        image_reference: "./assets/ct.png",
+        device: "CT",
+        bodypart: "Head",
         diagnosis: "Migraine",
-        comments: "Patient experiences frequent headaches.",
-        imgRef: "./assets/ct1.png",
-        description: "CT Scan of the head"
+        description: "CT Scan of the head",
+        is_private: 1,
+        created_at: new Date("2024-03-04")
     },
     {
         id: 2,
-        date: "2024-04-15",
-        type: "MRI",
-        medicalCenter: "City Clinic",
-        bodyPart: "Spine",
+        userId: 102,
+        image_reference: "./assets/mri.png",
+        device: "MRI",
+        bodypart: "Spine",
         diagnosis: "Herniated Disc",
-        comments: "Patient complains of back pain.",
-        imgRef: "./assets/mri1.png",
-        description: "MRI of the spine"
+        description: "MRI of the spine",
+        is_private: 1,
+        created_at: new Date("2024-04-15")
     },
     {
         id: 3,
-        date: "2024-02-10",
-        type: "Xray",
-        medicalCenter: "Downtown Medical",
-        bodyPart: "Chest",
+        userId: 103,
+        image_reference: "./assets/xray.png",
+        device: "Xray",
+        bodypart: "Chest",
         diagnosis: "Pneumonia",
-        comments: "Patient has cough and fever.",
-        imgRef: "./assets/xray1.png",
-        description: "Xray of the chest"
+        description: "Xray of the chest",
+        is_private: 1,
+        created_at: new Date("2024-02-10")
     },
     {
         id: 4,
-        date: "2024-01-22",
-        type: "CT",
-        medicalCenter: "Health Center",
-        bodyPart: "Abdomen",
+        userId: 104,
+        image_reference: "./assets/ct.png",
+        device: "CT",
+        bodypart: "Abdomen",
         diagnosis: "Gallstones",
-        comments: "Patient experiences abdominal pain.",
-        imgRef: "./assets/ct1.png",
-        description: "Ultrasound of the abdomen"
+        description: "Ultrasound of the abdomen",
+        is_private: 1,
+        created_at: new Date("2024-01-22")
     },
     {
         id: 5,
-        date: "2024-05-30",
-        type: "CT",
-        medicalCenter: "Westside Hospital",
-        bodyPart: "Leg",
+        userId: 105,
+        image_reference: "./assets/ct.png",
+        device: "CT",
+        bodypart: "Leg",
         diagnosis: "Fracture",
-        comments: "Patient injured in an accident.",
-        imgRef: "./assets/ct1.png",
-        description: "CT Scan of the leg"
+        description: "CT Scan of the leg",
+        is_private: 1,
+        created_at: new Date("2024-05-30")
     },
     {
         id: 6,
-        date: "2024-03-18",
-        type: "MRI",
-        medicalCenter: "Eastside Medical",
-        bodyPart: "Brain",
+        userId: 106,
+        image_reference: "./assets/mri.png",
+        device: "MRI",
+        bodypart: "Brain",
         diagnosis: "Tumor",
-        comments: "Patient has frequent dizziness.",
-        imgRef: "./assets/mri1.png",
-        description: "MRI of the brain"
+        description: "MRI of the brain",
+        is_private: 1,
+        created_at: new Date("2024-03-18")
     },
     {
         id: 7,
-        date: "2024-06-05",
-        type: "Xray",
-        medicalCenter: "North Clinic",
-        bodyPart: "Arm",
+        userId: 107,
+        image_reference: "./assets/xray.png",
+        device: "Xray",
+        bodypart: "Arm",
         diagnosis: "Sprain",
-        comments: "Patient fell while running.",
-        imgRef: "./assets/xray1.png",
-        description: "Xray of the arm"
+        description: "Xray of the arm",
+        is_private: 1,
+        created_at: new Date("2024-06-05")
     },
     {
         id: 8,
-        date: "2024-02-28",
-        type: "CT",
-        medicalCenter: "Central Hospital",
-        bodyPart: "Pelvis",
+        userId: 108,
+        image_reference: "./assets/ct.png",
+        device: "CT",
+        bodypart: "Pelvis",
         diagnosis: "Cyst",
-        comments: "Patient reports pelvic pain.",
-        imgRef: "./assets/ct1.png",
-        description: "Ultrasound of the pelvis"
+        description: "Ultrasound of the pelvis",
+        is_private: 1,
+        created_at: new Date("2024-02-28")
     },
     {
         id: 9,
-        date: "2024-04-01",
-        type: "CT",
-        medicalCenter: "Regional Medical",
-        bodyPart: "Chest",
+        userId: 109,
+        image_reference: "./assets/ct.png",
+        device: "CT",
+        bodypart: "Chest",
         diagnosis: "Lung Cancer",
-        comments: "Patient is a smoker.",
-        imgRef: "./assets/ct1.png",
-        description: "CT Scan of the chest"
+        description: "CT Scan of the chest",
+        is_private: 1,
+        created_at: new Date("2024-04-01")
     },
     {
         id: 10,
-        date: "2024-01-15",
-        type: "MRI",
-        medicalCenter: "Community Health",
-        bodyPart: "Knee",
+        userId: 110,
+        image_reference: "./assets/mri.png",
+        device: "MRI",
+        bodypart: "Knee",
         diagnosis: "ACL Tear",
-        comments: "Patient injured during sports.",
-        imgRef: "./assets/mri1.png",
-        description: "MRI of the knee"
+        description: "MRI of the knee",
+        is_private: 1,
+        created_at: new Date("2024-01-15")
     },
     {
         id: 11,
-        date: "2024-03-09",
-        type: "Xray",
-        medicalCenter: "Metro Clinic",
-        bodyPart: "Foot",
+        userId: 111,
+        image_reference: "./assets/xray.png",
+        device: "Xray",
+        bodypart: "Foot",
         diagnosis: "Fracture",
-        comments: "Patient dropped a heavy object on foot.",
-        imgRef: "./assets/xray1.png",
-        description: "Xray of the foot"
+        description: "Xray of the foot",
+        is_private: 1,
+        created_at: new Date("2024-03-09")
     },
     {
         id: 12,
-        date: "2024-02-20",
-        type: "CT",
-        medicalCenter: "County Hospital",
-        bodyPart: "Neck",
+        userId: 112,
+        image_reference: "./assets/ct.png",
+        device: "CT",
+        bodypart: "Neck",
         diagnosis: "Thyroid Nodule",
-        comments: "Patient has a lump in the neck.",
-        imgRef: "./assets/ct1.png",
-        description: "Ultrasound of the neck"
+        description: "Ultrasound of the neck",
+        is_private: 1,
+        created_at: new Date("2024-02-20")
     },
     {
         id: 13,
-        date: "2024-05-15",
-        type: "CT",
-        medicalCenter: "State Medical Center",
-        bodyPart: "Abdomen",
+        userId: 113,
+        image_reference: "./assets/ct.png",
+        device: "CT",
+        bodypart: "Abdomen",
         diagnosis: "Appendicitis",
-        comments: "Patient has severe abdominal pain.",
-        imgRef: "./assets/ct1.png",
-        description: "CT Scan of the abdomen"
+        description: "CT Scan of the abdomen",
+        is_private: 1,
+        created_at: new Date("2024-05-15")
     },
     {
         id: 14,
-        date: "2024-01-05",
-        type: "MRI",
-        medicalCenter: "National Health",
-        bodyPart: "Shoulder",
+        userId: 114,
+        image_reference: "./assets/mri.png",
+        device: "MRI",
+        bodypart: "Shoulder",
         diagnosis: "Rotator Cuff Tear",
-        comments: "Patient experiences shoulder pain.",
-        imgRef: "./assets/mri1.png",
-        description: "MRI of the shoulder"
+        description: "MRI of the shoulder",
+        is_private: 1,
+        created_at: new Date("2024-01-05")
     },
     {
         id: 15,
-        date: "2024-06-10",
-        type: "Xray",
-        medicalCenter: "City Hospital",
-        bodyPart: "Hand",
+        userId: 115,
+        image_reference: "./assets/xray.png",
+        device: "Xray",
+        bodypart: "Hand",
         diagnosis: "Dislocation",
-        comments: "Patient's hand got caught in a door.",
-        imgRef: "./assets/xray1.png",
-        description: "Xray of the hand"
+        description: "Xray of the hand",
+        is_private: 1,
+        created_at: new Date("2024-06-10")
     }
 ];
 
 export const mockDataFeed = [
     {
         id: 1,
-        username: "JohnDoe",
-        date: "2024-06-13",
-        type: "CT",
+        userId: 101,
+        image_reference: "assets/ct.png",
+        device: "CT",
         description: "CT Scan of the brain",
-        imgRef: "assets/ct1.png"
+        is_private: 0,
+        created_at: new Date("2024-06-13")
     },
     {
         id: 2,
-        username: "JaneSmith",
-        date: "2024-06-12",
-        type: "MRI",
+        userId: 102,
+        image_reference: "assets/ct.png",
+        device: "MRI",
         description: "MRI of the spine",
-        imgRef: "assets/ct1.png"
+        is_private: 0,
+        created_at: new Date("2024-06-12")
     },
     {
         id: 3,
-        username: "AlexJohnson",
-        date: "2024-06-11",
-        type: "Xray",
+        userId: 103,
+        image_reference: "assets/ct.png",
+        device: "Xray",
         description: "Xray of the chest",
-        imgRef: "assets/ct1.png"
+        is_private: 0,
+        created_at: new Date("2024-06-11")
     }
 ];
 
-
 export const mockConnections = [
     {
-        id: 1,
-        username: "JohnDoe",
-        role: "doctor",
-        connected: true
+        connection_id: 1,
+        user1_id: 101,
+        user2_id: 107,
+        connected: true,
+        created_at: new Date("2024-06-01")
     },
     {
-        id: 2,
-        username: "JaneSmith",
-        role: "patient",
-        connected: false
+        connection_id: 2,
+        user1_id: 102,
+        user2_id: 108,
+        connected: false,
+        created_at: new Date("2024-06-02")
     },
     {
-        id: 3,
-        username: "AlexJohnson",
-        role: "nurse",
-        connected: true
+        connection_id: 3,
+        user1_id: 103,
+        user2_id: 109,
+        connected: true,
+        created_at: new Date("2024-06-03")
     },
     {
-        id: 4,
-        username: "EmilyBrown",
-        role: "patient",
-        connected: false
+        connection_id: 4,
+        user1_id: 104,
+        user2_id: 110,
+        connected: false,
+        created_at: new Date("2024-06-04")
     },
     {
-        id: 5,
-        username: "MichaelWhite",
-        role: "nurse",
-        connected: true
+        connection_id: 5,
+        user1_id: 105,
+        user2_id: 111,
+        connected: true,
+        created_at: new Date("2024-06-05")
     },
     {
-        id: 6,
-        username: "LindaGreen",
-        role: "patient",
-        connected: false
+        connection_id: 6,
+        user1_id: 106,
+        user2_id: 112,
+        connected: false,
+        created_at: new Date("2024-06-06")
     },
     {
-        id: 7,
-        username: "ChrisBlack",
-        role: "doctor",
-        connected: true
+        connection_id: 7,
+        user1_id: 107,
+        user2_id: 113,
+        connected: true,
+        created_at: new Date("2024-06-07")
     },
     {
-        id: 8,
-        username: "SarahBlue",
-        role: "patient",
-        connected: false
+        connection_id: 8,
+        user1_id: 108,
+        user2_id: 114,
+        connected: false,
+        created_at: new Date("2024-06-08")
     },
     {
-        id: 9,
-        username: "DavidYellow",
-        role: "nurse",
-        connected: true
+        connection_id: 9,
+        user1_id: 109,
+        user2_id: 115,
+        connected: true,
+        created_at: new Date("2024-06-09")
     },
     {
-        id: 10,
-        username: "LauraRed",
-        role: "doctor",
-        connected: false
+        connection_id: 10,
+        user1_id: 110,
+        user2_id: 101,
+        connected: false,
+        created_at: new Date("2024-06-10")
     }
 ];

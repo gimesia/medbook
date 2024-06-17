@@ -26,8 +26,8 @@
             <div class="main-content" id="main-content">
                 <div class="filter-bar">
                     <div class="filter-group">
-                        <label for="type">Type:</label>
-                        <select id="type" name="type" class="browser-default">
+                        <label for="device">Device:</label>
+                        <select id="device" name="device" class="browser-default">
                             <option value="all">All</option>
                             <option value="ct">CT</option>
                             <option value="mri">MRI</option>
@@ -38,8 +38,8 @@
                         <label for="sort">Sort By:</label>
                         <select id="sort" name="sort" class="browser-default">
                             <option value="date">Date</option>
-                            <option value="type">Type</option>
-                            <option value="description">Description</option>
+                            <option value="id">ID</option>
+                            <option value="diagnosis">Diagnosis</option>
                         </select>
                     </div>
                 </div>
@@ -58,8 +58,17 @@
             document.getElementById('user-name').textContent = userName;
         }
 
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
         function populateWithMockData() {
-            const typeFilter = document.getElementById('type').value;
+            console.log(mockDataImages)
+            const deviceFilter = document.getElementById('device').value;
             const sortCriteria = document.getElementById('sort').value;
             const feedContainer = document.getElementById('images');
             feedContainer.innerHTML = '';
@@ -69,12 +78,12 @@
 
             document.getElementById('images').appendChild(warnElement);
 
-            let filteredFeedItems = mockDataImages.filter(item => typeFilter === 'all' || item.type.toLowerCase() === typeFilter.toLowerCase());
+            let filteredFeedItems = mockDataImages.filter(item => deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase());
 
             filteredFeedItems.sort((a, b) => {
-                if (sortCriteria === 'type') {
-                    return a.type.localeCompare(b.type);
-                } else if (sortCriteria === 'description') {
+                if (sortCriteria === 'id') {
+                    return a.id - b.id;
+                } else if (sortCriteria === 'diagnosis') {
                     return a.description.localeCompare(b.description);
                 } else if (sortCriteria === 'date') {
                     return new Date(b.date) - new Date(a.date);
@@ -83,12 +92,14 @@
             });
 
             filteredFeedItems.forEach(item => {
+                console.log(item)
+
                 const feedItem = document.createElement('div');
                 feedItem.className = 'image-card interactive card mr-3 mb-3';
                 feedItem.setAttribute('data-id', item.id);
                 feedItem.innerHTML = `
-                    <img src="${item.imgRef.replace("./", "")}" alt="${item.description}">
-                    <p>ID: ${item.id} <br> Date: ${item.date} <br> Type: ${item.type}</p>
+                    <img src="${item.image_reference.replace("./", "")}" alt="${item.bodypart}">
+                    <p>ID: ${item.id} <br>userID: ${item.userId}  <br> Date: ${formatDate(item.created_at)} <br> Device: ${item.device}</p>
                     <h3>${item.description}</h3>
                 `;
                 feedContainer.appendChild(feedItem);
@@ -97,9 +108,9 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             loadUserName();
-            loadFeedItems();
-            document.getElementById('type').addEventListener('change', loadFeedItems);
-            document.getElementById('sort').addEventListener('change', loadFeedItems);
+            loadImageItems();
+            document.getElementById('device').addEventListener('change', loadImageItems);
+            document.getElementById('sort').addEventListener('change', loadImageItems);
         });
 
         function addCardClickListeners() {
@@ -112,8 +123,8 @@
             });
         }
 
-        async function loadFeedItems() {
-            const typeFilter = document.getElementById('type').value;
+        async function loadImageItems() {
+            const deviceFilter = document.getElementById('device').value;
             const sortCriteria = document.getElementById('sort').value;
             const feedContainer = document.getElementById('images');
             feedContainer.innerHTML = '';
@@ -125,12 +136,12 @@
                 }
                 let feedItems = await response.json();
 
-                let filteredFeedItems = feedItems.filter(item => typeFilter === 'all' || item.type.toLowerCase() === typeFilter.toLowerCase());
+                let filteredFeedItems = feedItems.filter(item => deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase());
 
                 filteredFeedItems.sort((a, b) => {
-                    if (sortCriteria === 'type') {
-                        return a.type.localeCompare(b.type);
-                    } else if (sortCriteria === 'description') {
+                    if (sortCriteria === 'id') {
+                        return a.id - b.id;
+                    } else if (sortCriteria === 'diagnosis') {
                         return a.description.localeCompare(b.description);
                     } else if (sortCriteria === 'date') {
                         return new Date(b.date) - new Date(a.date);
@@ -143,10 +154,9 @@
                     feedItem.className = 'image-card interactive card mr-3 mb-3';
                     feedItem.setAttribute('data-id', item.id);
                     feedItem.innerHTML = `
-                            <img src="${item.imgRef.replace("./", "")}" alt="${item.description}">
-                            <p>ID: ${item.id} <br> Date: ${item.date} <br> Type: ${item.type}</p>
-                            <h3>${item.description}</h3>
-                        `;
+                        <img src="${item.image_reference.replace("./", "")}" alt="${item.bodypart}">
+                        <p>ID: ${item.id} <br>userID: ${item.userId}  <br> Date: ${formatDate(item.created_at)} <br> Device: ${item.device}</p>
+                        <h3>${item.description}</h3>`;
                     feedContainer.appendChild(feedItem);
                 });
                 addCardClickListeners();
@@ -160,9 +170,9 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             loadUserName();
-            loadFeedItems();
-            document.getElementById('type').addEventListener('change', loadFeedItems);
-            document.getElementById('sort').addEventListener('change', loadFeedItems);
+            loadImageItems();
+            document.getElementById('device').addEventListener('change', loadImageItems);
+            document.getElementById('sort').addEventListener('change', loadImageItems);
         });
     </script>
 </body>
