@@ -39,7 +39,7 @@ public class GetConnectionsByUserIdAction extends ActionSupport {
       public String execute() {
         try {
             ConnectionDao connectionDao = new ConnectionDaoImpl();
-            connections = connectionDao.getConnectionsForUserId(userId);
+            connections = connectionDao.getConnectionsByUserId(userId);
             if (connections != null /*&& !connections.isEmpty()*/) {
                 return SUCCESS;
             } else {
