@@ -5,87 +5,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedBook</title>
-    <!-- Include Materialize CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <div class="layout">
-        <div class="topbar">
-            <span id="user-name"></span>'s MedBook
-        </div>
-        <div class="sidebar">
-            <a href="images.html">My IMAGES</a>
-            <a href="feed.html">FEED</a>
-            <a href="connections.html">CONNECTIONS</a>
-            <a href="account.html">ACCOUNT</a>
-            <a href="#">LOGOUT</a>
-        </div>
-        <div class="content">
-            <div class="main-content">
-                <div class="image-container" id="image">
-                    <!-- Dynamic content will be inserted here -->
-                    <div class="image-prev-card card">
-                        <div class="image-prev-card-info" id="image-info">
-                            <div>Date: <span id="date"></span></div>
-                            <div>Location: <span id="location">&lt;MEDICAL CENTER&gt;</span></div>
-                            <div>Imaging type: <span id="type"></span></div>
-                            <div>Bodypart: <span id="bodypart">Body part: &lt;BP&gt;</span></div>
-                            <div>Diagnosis: <span id="diagnosis">Diagnosis: &lt;diagnos&gt;</span></div>
-                            <div>Description: <span id="description">Description: &lt;Desc&gt;</span></div>
-                            <div class="image-prev-card-buttons">
-                                <button class="btn">edit</button>
-                                <button class="btn">share</button>
-                                <button class="btn">proc</button>
-                            </div>
+<div class="layout">
+    <div class="topbar">
+        <span id="user-name"></span>'s MedBook
+    </div>
+    <div class="sidebar">
+        <a href="images.html">My IMAGES</a>
+        <a href="feed.html">FEED</a>
+        <a href="connections.html">CONNECTIONS</a>
+        <a href="account.html">ACCOUNT</a>
+        <a href="#">LOGOUT</a>
+    </div>
+    <div class="content">
+        <div class="main-content">
+            <div class="image-container" id="image">
+                <div class="image-prev-card card">
+                    <div class="image-prev-card-info" id="image-info">
+                        <div>Date: <span id="date"></span></div>
+                        <div>Location: <span id="location">&lt;MEDICAL CENTER&gt;</span></div>
+                        <div>Imaging type: <span id="type"></span></div>
+                        <div>Bodypart: <span id="bodypart">Body part: &lt;BP&gt;</span></div>
+                        <div>Diagnosis: <span id="diagnosis">Diagnosis: &lt;diagnos&gt;</span></div>
+                        <div>Description: <span id="description">Description: &lt;Desc&gt;</span></div>
+                        <div class="image-prev-card-buttons">
+                            <button class="btn">edit</button>
+                            <button class="btn">share</button>
+                            <button class="btn">proc</button>
                         </div>
-                        <div class="image-prev-card-image" id="image-display">
-                            <p>&lt;IMG&gt;</p>
-                        </div>
+                    </div>
+                    <div class="image-prev-card-image" id="image-display">
+                        <p>&lt;IMG&gt;</p>
+                    </div>
 
-                        <div class="image-prev-card-nav">
-                            <button class="btn">&lt;</button>
-                            <button class="btn">&gt;</button>
-                        </div>
+                    <div class="image-prev-card-nav">
+                        <button class="btn">&lt;</button>
+                        <button class="btn">&gt;</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script type="module">
-        import { mockDataImages } from './mockData.js';
+<script type="module">
+    // Function to get the query parameters from the URL
+    function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return params;
+    }
 
-        // Function to get the query parameters from the URL
-        function getQueryParams() {
-            const params = new URLSearchParams(window.location.search);
-            return params;
-        }
+    // Function to format the date to "YYYY-MM-DD"
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
 
-        // Function to display the image data based on the ID
-        function displayImageData() {
-            const params = getQueryParams();
-            const imageId = parseInt(params.get('id'), 10);
+    // Function to display the image data based on the ID
+    async function displayImageData() {
+        const params = getQueryParams();
+        const imageId = parseInt(params.get('id'), 10);
 
-            const imageData = mockDataImages.find(image => image.id === imageId);
+        try {
+            const response = await fetch(`image-by-id?imageId=${imageId}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
 
-            if (imageData) {
-                document.getElementById('date').textContent = imageData.date;
-                document.getElementById('location').textContent = imageData.medicalCenter;
-                document.getElementById('type').textContent = imageData.type;
-                document.getElementById('bodypart').textContent = imageData.bodyPart;
-                document.getElementById('diagnosis').textContent = imageData.diagnosis;
-                document.getElementById('description').textContent = imageData.description
-                document.getElementById('image-display').innerHTML = `<img src="${imageData.imgRef}" alt="${imageData.description}">`;
+            if (data) {
+                document.getElementById('date').textContent = formatDate(data.createdAt);
+                document.getElementById('location').textContent = "City Hospital";
+                document.getElementById('type').textContent = data.device;
+                document.getElementById('bodypart').textContent = data.bodypart;
+                document.getElementById('diagnosis').textContent = data.diagnosis;
+                document.getElementById('description').textContent = data.description;
+                document.getElementById('image-display').innerHTML = `<img src="${data.imageReference}" alt="${data.description}">`;
             } else {
                 document.getElementById('image').innerHTML = '<p>Image not found</p>';
             }
+        } catch (error) {
+            console.error('Error fetching image data:', error);
+            document.getElementById('image').innerHTML = '<p>Error fetching image data</p>';
         }
+    }
 
-        // Execute the function when the page loads
-        window.onload = displayImageData;
-    </script>
+    // Execute the function when the page loads
+    window.onload = displayImageData;
+</script>
 </body>
 
 </html>

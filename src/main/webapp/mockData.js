@@ -8,7 +8,7 @@ export const mockDataImages = [
         bodyPart: "Head",
         diagnosis: "Migraine",
         comments: "Patient experiences frequent headaches.",
-        imgRef: "./assets/ct.png",
+        imgRef: "./assets/ct1.png",
         description: "CT Scan of the head"
     },
     {
@@ -19,7 +19,7 @@ export const mockDataImages = [
         bodyPart: "Spine",
         diagnosis: "Herniated Disc",
         comments: "Patient complains of back pain.",
-        imgRef: "./assets/mri.png",
+        imgRef: "./assets/mri1.png",
         description: "MRI of the spine"
     },
     {
@@ -30,7 +30,7 @@ export const mockDataImages = [
         bodyPart: "Chest",
         diagnosis: "Pneumonia",
         comments: "Patient has cough and fever.",
-        imgRef: "./assets/xray.png",
+        imgRef: "./assets/xray1.png",
         description: "Xray of the chest"
     },
     {
@@ -41,7 +41,7 @@ export const mockDataImages = [
         bodyPart: "Abdomen",
         diagnosis: "Gallstones",
         comments: "Patient experiences abdominal pain.",
-        imgRef: "./assets/ct.png",
+        imgRef: "./assets/ct1.png",
         description: "Ultrasound of the abdomen"
     },
     {
@@ -52,7 +52,7 @@ export const mockDataImages = [
         bodyPart: "Leg",
         diagnosis: "Fracture",
         comments: "Patient injured in an accident.",
-        imgRef: "./assets/ct.png",
+        imgRef: "./assets/ct1.png",
         description: "CT Scan of the leg"
     },
     {
@@ -63,7 +63,7 @@ export const mockDataImages = [
         bodyPart: "Brain",
         diagnosis: "Tumor",
         comments: "Patient has frequent dizziness.",
-        imgRef: "./assets/mri.png",
+        imgRef: "./assets/mri1.png",
         description: "MRI of the brain"
     },
     {
@@ -74,7 +74,7 @@ export const mockDataImages = [
         bodyPart: "Arm",
         diagnosis: "Sprain",
         comments: "Patient fell while running.",
-        imgRef: "./assets/xray.png",
+        imgRef: "./assets/xray1.png",
         description: "Xray of the arm"
     },
     {
@@ -85,7 +85,7 @@ export const mockDataImages = [
         bodyPart: "Pelvis",
         diagnosis: "Cyst",
         comments: "Patient reports pelvic pain.",
-        imgRef: "./assets/ct.png",
+        imgRef: "./assets/ct1.png",
         description: "Ultrasound of the pelvis"
     },
     {
@@ -96,7 +96,7 @@ export const mockDataImages = [
         bodyPart: "Chest",
         diagnosis: "Lung Cancer",
         comments: "Patient is a smoker.",
-        imgRef: "./assets/ct.png",
+        imgRef: "./assets/ct1.png",
         description: "CT Scan of the chest"
     },
     {
@@ -107,7 +107,7 @@ export const mockDataImages = [
         bodyPart: "Knee",
         diagnosis: "ACL Tear",
         comments: "Patient injured during sports.",
-        imgRef: "./assets/mri.png",
+        imgRef: "./assets/mri1.png",
         description: "MRI of the knee"
     },
     {
@@ -118,7 +118,7 @@ export const mockDataImages = [
         bodyPart: "Foot",
         diagnosis: "Fracture",
         comments: "Patient dropped a heavy object on foot.",
-        imgRef: "./assets/xray.png",
+        imgRef: "./assets/xray1.png",
         description: "Xray of the foot"
     },
     {
@@ -129,7 +129,7 @@ export const mockDataImages = [
         bodyPart: "Neck",
         diagnosis: "Thyroid Nodule",
         comments: "Patient has a lump in the neck.",
-        imgRef: "./assets/ct.png",
+        imgRef: "./assets/ct1.png",
         description: "Ultrasound of the neck"
     },
     {
@@ -140,7 +140,7 @@ export const mockDataImages = [
         bodyPart: "Abdomen",
         diagnosis: "Appendicitis",
         comments: "Patient has severe abdominal pain.",
-        imgRef: "./assets/ct.png",
+        imgRef: "./assets/ct1.png",
         description: "CT Scan of the abdomen"
     },
     {
@@ -151,7 +151,7 @@ export const mockDataImages = [
         bodyPart: "Shoulder",
         diagnosis: "Rotator Cuff Tear",
         comments: "Patient experiences shoulder pain.",
-        imgRef: "./assets/mri.png",
+        imgRef: "./assets/mri1.png",
         description: "MRI of the shoulder"
     },
     {
@@ -162,7 +162,7 @@ export const mockDataImages = [
         bodyPart: "Hand",
         diagnosis: "Dislocation",
         comments: "Patient's hand got caught in a door.",
-        imgRef: "./assets/xray.png",
+        imgRef: "./assets/xray1.png",
         description: "Xray of the hand"
     }
 ];
@@ -174,7 +174,7 @@ export const mockDataFeed = [
         date: "2024-06-13",
         type: "CT",
         description: "CT Scan of the brain",
-        imgRef: "assets/ct.png"
+        imgRef: "assets/ct1.png"
     },
     {
         id: 2,
@@ -182,7 +182,7 @@ export const mockDataFeed = [
         date: "2024-06-12",
         type: "MRI",
         description: "MRI of the spine",
-        imgRef: "assets/ct.png"
+        imgRef: "assets/ct1.png"
     },
     {
         id: 3,
@@ -190,7 +190,7 @@ export const mockDataFeed = [
         date: "2024-06-11",
         type: "Xray",
         description: "Xray of the chest",
-        imgRef: "assets/ct.png"
+        imgRef: "assets/ct1.png"
     }
 ];
 

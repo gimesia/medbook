@@ -90,26 +90,26 @@ INSERT INTO medbook_db.Connection (user1_id, user2_id, created_at) VALUES
 
 -- Insert Images
 INSERT INTO medbook_db.Image (user_id, image_reference, device, bodypart, diagnosis, description, is_private, created_at) VALUES
-                                                                                                                              (101, 'CT1.jpg', 'CT', 'Head', 'Normal', 'CT scan of head', 1, NOW()),
-                                                                                                                              (101, 'CT2.jpg', 'CT', 'Head', 'Normal', 'CT scan of head', 1, NOW()),
-                                                                                                                              (102, 'Xray1.jpg', 'X-ray', 'Chest', 'Normal', 'X-ray of chest', 1, NOW()),
-                                                                                                                              (102, 'Xray2.jpg', 'X-ray', 'Chest', 'Normal', 'X-ray of chest', 1, NOW()),
-                                                                                                                              (103, 'MRI1.jpg', 'MRI', 'Brain', 'Normal', 'MRI scan of brain', 1, NOW()),
-                                                                                                                              (103, 'MRI2.jpg', 'MRI', 'Brain', 'Normal', 'MRI scan of brain', 1, NOW()),
-                                                                                                                              (104, 'CT1.jpg', 'CT', 'Abdomen', 'Normal', 'CT scan of abdomen', 1, NOW()),
-                                                                                                                              (104, 'CT2.jpg', 'CT', 'Abdomen', 'Normal', 'CT scan of abdomen', 1, NOW()),
-                                                                                                                              (105, 'Xray1.jpg', 'X-ray', 'Leg', 'Normal', 'X-ray of leg', 1, NOW()),
-                                                                                                                              (105, 'Xray2.jpg', 'X-ray', 'Leg', 'Normal', 'X-ray of leg', 1, NOW()),
-                                                                                                                              (106, 'MRI1.jpg', 'MRI', 'Spine', 'Normal', 'MRI scan of spine', 1, NOW()),
-                                                                                                                              (106, 'MRI2.jpg', 'MRI', 'Spine', 'Normal', 'MRI scan of spine', 1, NOW()),
-                                                                                                                              (107, 'CT1.jpg', 'CT', 'Chest', 'Normal', 'CT scan of chest', 1, NOW()),
-                                                                                                                              (107, 'CT2.jpg', 'CT', 'Chest', 'Normal', 'CT scan of chest', 1, NOW()),
-                                                                                                                              (108, 'Xray1.jpg', 'X-ray', 'Arm', 'Normal', 'X-ray of arm', 1, NOW()),
-                                                                                                                              (108, 'Xray2.jpg', 'X-ray', 'Arm', 'Normal', 'X-ray of arm', 1, NOW()),
-                                                                                                                              (109, 'MRI1.jpg', 'MRI', 'Knee', 'Normal', 'MRI scan of knee', 1, NOW()),
-                                                                                                                              (109, 'MRI2.jpg', 'MRI', 'Knee', 'Normal', 'MRI scan of knee', 1, NOW()),
-                                                                                                                              (110, 'CT1.jpg', 'CT', 'Pelvis', 'Normal', 'CT scan of pelvis', 1, NOW()),
-                                                                                                                              (110, 'CT2.jpg', 'CT', 'Pelvis', 'Normal', 'CT scan of pelvis', 1, NOW());
+                                                                                                                              (101, './assets/ct1.png', 'CT', 'Head', 'Normal', 'CT scan of head', 1, NOW()),
+                                                                                                                              (101, './assets/ct2.png', 'CT', 'Head', 'Normal', 'CT scan of head', 1, NOW()),
+                                                                                                                              (102, './assets/xray1.png', 'X-ray', 'Chest', 'Normal', 'X-ray of chest', 1, NOW()),
+                                                                                                                              (102, './assets/xray2.png', 'X-ray', 'Chest', 'Normal', 'X-ray of chest', 1, NOW()),
+                                                                                                                              (103, './assets/mri1.png', 'MRI', 'Brain', 'Normal', 'MRI scan of brain', 1, NOW()),
+                                                                                                                              (103, './assets/mri2.png', 'MRI', 'Brain', 'Normal', 'MRI scan of brain', 1, NOW()),
+                                                                                                                              (104, './assets/ct1.png', 'CT', 'Abdomen', 'Normal', 'CT scan of abdomen', 1, NOW()),
+                                                                                                                              (104, './assets/ct2.png', 'CT', 'Abdomen', 'Normal', 'CT scan of abdomen', 1, NOW()),
+                                                                                                                              (105, './assets/xray1.png', 'X-ray', 'Leg', 'Normal', 'X-ray of leg', 1, NOW()),
+                                                                                                                              (105, './assets/xray2.png', 'X-ray', 'Leg', 'Normal', 'X-ray of leg', 1, NOW()),
+                                                                                                                              (106, './assets/mri1.png', 'MRI', 'Spine', 'Normal', 'MRI scan of spine', 1, NOW()),
+                                                                                                                              (106, './assets/mri2.png', 'MRI', 'Spine', 'Normal', 'MRI scan of spine', 1, NOW()),
+                                                                                                                              (107, './assets/ct1.png', 'CT', 'Chest', 'Normal', 'CT scan of chest', 1, NOW()),
+                                                                                                                              (107, './assets/ct2.png', 'CT', 'Chest', 'Normal', 'CT scan of chest', 1, NOW()),
+                                                                                                                              (108, './assets/xray1.png', 'X-ray', 'Arm', 'Normal', 'X-ray of arm', 1, NOW()),
+                                                                                                                              (108, './assets/xray2.png', 'X-ray', 'Arm', 'Normal', 'X-ray of arm', 1, NOW()),
+                                                                                                                              (109, './assets/mri1.png', 'MRI', 'Knee', 'Normal', 'MRI scan of knee', 1, NOW()),
+                                                                                                                              (109, './assets/mri2.png', 'MRI', 'Knee', 'Normal', 'MRI scan of knee', 1, NOW()),
+                                                                                                                              (110, './assets/ct1.png', 'CT', 'Pelvis', 'Normal', 'CT scan of pelvis', 1, NOW()),
+                                                                                                                              (110, './assets/ct2.png', 'CT', 'Pelvis', 'Normal', 'CT scan of pelvis', 1, NOW());
 
 -- Drop user if exists and create a new one
 DROP USER IF EXISTS 'app_user'@'localhost';

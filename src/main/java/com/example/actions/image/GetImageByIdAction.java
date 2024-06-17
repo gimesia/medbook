@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class GetImageByIdAction extends ActionSupport {
     private static final Logger logger = LoggerFactory.getLogger(GetImageByIdAction.class);
-    
+
     private int imageId;
     private Image image;
     private String errorMessage;
@@ -42,7 +42,7 @@ public class GetImageByIdAction extends ActionSupport {
                 return ERROR;
             }
         } catch (Exception e) {
-            logger.error("Error finding user by username", e);
+            logger.error("Error finding image by ID", e);
             errorMessage = "An error occurred while fetching image information";
             return ERROR;
         }
