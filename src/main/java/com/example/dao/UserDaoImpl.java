@@ -22,6 +22,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPasswordHash());
+            stmt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis())); // Set created_at
             stmt.setString(4, user.getRole());
             stmt.executeUpdate();
         } catch (SQLException e) {

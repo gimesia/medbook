@@ -4,12 +4,26 @@ import com.example.dao.UserDao;
 import com.example.dao.UserDaoImpl;
 import com.example.models.User;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.SessionAware;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class GetUserInfoByUsernameAction extends ActionSupport {
+import java.util.Map;
+
+public class GetUserInfoByUsernameAction extends ActionSupport implements SessionAware {
+    private static final Logger logger = LoggerFactory.getLogger(GetUserInfoByUsernameAction.class);
+
     private String username;
-    private User user;
-    private String errorMessage;
+    private String password;
+    private String role;
+    private UserDao userDao;
+    private Map<String, Object> session;
 
+    public GetUserInfoByUsernameAction() {
+        userDao = new UserDaoImpl();
+    }
+
+    // Getter and setter methods for username, password, and role
     public String getUsername() {
         return username;
     }
@@ -18,27 +32,55 @@ public class GetUserInfoByUsernameAction extends ActionSupport {
         this.username = username;
     }
 
-    public User getUser() {
-        return user;
+    public String getPassword() {
+        return password;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String execute() {
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
+    }
+
+    public String register() {
         try {
-            UserDao userDao = new UserDaoImpl();
-            user = userDao.getUserByUsername(username);
-            if (user != null) {
+            User user = new User();
+            user.setUsername(username);
+            user.setPasswordHash(password); // Assume hashing is done elsewhere
+            user.setRole(role);
+
+            userDao.createUser(user);
+            return SUCCESS;
+        } catch (Exception e) {
+            logger.error("Error during registration", e);
+            return ERROR;
+        }
+    }
+
+    public String login() {
+        try {
+            User user = userDao.getUserByUsername(username);
+            if (user != null && user.getPasswordHash().equals(password)) { // Assume password is hashed
+                session.put("user", user);
                 return SUCCESS;
             } else {
-                errorMessage = "User not found";
+                addActionError("Invalid username or password.");
                 return ERROR;
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            errorMessage = "An error occurred while fetching user information";
+            logger.error("Error during login", e);
+            addActionError("An error occurred during login.");
             return ERROR;
         }
     }
