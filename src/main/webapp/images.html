@@ -16,11 +16,11 @@
             <span id="user-name"></span>'s MedBook
         </div>
         <div class="sidebar">
-            <a href="images.html" class="active">My IMAGES</a>
-            <a href="feed.html">FEED</a>
-            <a href="connections.html">CONNECTIONS</a>
-            <a href="account.html">ACCOUNT</a>
-            <a href="#">LOGOUT</a>
+            <a href="#" id="images-link" class="active">My IMAGES</a>
+            <a href="#" id="feed-link">FEED</a>
+            <a href="#" id="connections-link">CONNECTIONS</a>
+            <a href="#" id="account-link">ACCOUNT</a>
+            <a href="#" id="logout-link">LOGOUT</a>
         </div>
         <div class="content">
             <div class="main-content" id="main-content">
@@ -66,8 +66,20 @@
             return `${year}-${month}-${day}`;
         }
 
-        function populateWithMockData() {
-            console.log(mockDataImages)
+        function getuser_idFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('user_id');
+        }
+
+        function updateSidebarLinks(user_id) {
+            document.getElementById('images-link').href = `images.html?user_id=${user_id}`;
+            document.getElementById('feed-link').href = `feed.html?user_id=${user_id}`;
+            document.getElementById('connections-link').href = `connections.html?user_id=${user_id}`;
+            document.getElementById('account-link').href = `account.html?user_id=${user_id}`;
+            document.getElementById('logout-link').href = `logout.html?user_id=${user_id}`;
+        }
+
+        function populateWithMockData(user_id) {
             const deviceFilter = document.getElementById('device').value;
             const sortCriteria = document.getElementById('sort').value;
             const feedContainer = document.getElementById('images');
@@ -78,7 +90,10 @@
 
             document.getElementById('images').appendChild(warnElement);
 
-            let filteredFeedItems = mockDataImages.filter(item => deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase());
+            let filteredFeedItems = mockDataImages.filter(item => 
+                (deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase()) &&
+                item.user_id == user_id
+            );
 
             filteredFeedItems.sort((a, b) => {
                 if (sortCriteria === 'id') {
@@ -92,14 +107,12 @@
             });
 
             filteredFeedItems.forEach(item => {
-                console.log(item)
-
                 const feedItem = document.createElement('div');
                 feedItem.className = 'image-card interactive card mr-3 mb-3';
                 feedItem.setAttribute('data-id', item.id);
                 feedItem.innerHTML = `
                     <img src="${item.image_reference.replace("./", "")}" alt="${item.bodypart}">
-                    <p>ID: ${item.id} <br>userID: ${item.userId}  <br> Date: ${formatDate(item.created_at)} <br> Device: ${item.device}</p>
+                    <p>ID: ${item.id} <br>user_id: ${item.user_id}  <br> Date: ${formatDate(item.created_at)} <br> Device: ${item.device}</p>
                     <h3>${item.description}</h3>
                 `;
                 feedContainer.appendChild(feedItem);
@@ -108,6 +121,8 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             loadUserName();
+            const user_id = getuser_idFromUrl();
+            updateSidebarLinks(user_id);
             loadImageItems();
             document.getElementById('device').addEventListener('change', loadImageItems);
             document.getElementById('sort').addEventListener('change', loadImageItems);
@@ -129,14 +144,19 @@
             const feedContainer = document.getElementById('images');
             feedContainer.innerHTML = '';
 
+            const user_id = getuser_idFromUrl();
+
             try {
-                let response = await fetch('/MedBook/getFeed');
+                let response = await fetch(`/MedBook/getFeed?user_id=${user_id}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 let feedItems = await response.json();
 
-                let filteredFeedItems = feedItems.filter(item => deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase());
+                let filteredFeedItems = feedItems.filter(item => 
+                    (deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase()) &&
+                    item.user_id == user_id
+                );
 
                 filteredFeedItems.sort((a, b) => {
                     if (sortCriteria === 'id') {
@@ -155,7 +175,7 @@
                     feedItem.setAttribute('data-id', item.id);
                     feedItem.innerHTML = `
                         <img src="${item.image_reference.replace("./", "")}" alt="${item.bodypart}">
-                        <p>ID: ${item.id} <br>userID: ${item.userId}  <br> Date: ${formatDate(item.created_at)} <br> Device: ${item.device}</p>
+                        <p>ID: ${item.id} <br>user_id: ${item.user_id}  <br> Date: ${formatDate(item.created_at)} <br> Device: ${item.device}</p>
                         <h3>${item.description}</h3>`;
                     feedContainer.appendChild(feedItem);
                 });
@@ -163,13 +183,15 @@
             } catch (error) {
                 console.error('Error fetching feed items:', error);
                 feedContainer.innerHTML = '<p>Error loading feed items. Using mock data instead.</p>';
-                populateWithMockData();
+                populateWithMockData(user_id);
                 addCardClickListeners(); // Ensure listeners are added to mock data cards too
             }
         }
 
         document.addEventListener('DOMContentLoaded', function () {
             loadUserName();
+            const user_id = getuser_idFromUrl();
+            updateSidebarLinks(user_id);
             loadImageItems();
             document.getElementById('device').addEventListener('change', loadImageItems);
             document.getElementById('sort').addEventListener('change', loadImageItems);

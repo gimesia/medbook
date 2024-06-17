@@ -15,11 +15,11 @@
             <span id="user-name"></span>'s MedBook
         </div>
         <div class="sidebar">
-            <a href="images.html">My IMAGES</a>
-            <a href="feed.html" class="active">FEED</a>
-            <a href="connections.html">CONNECTIONS</a>
-            <a href="account.html">ACCOUNT</a>
-            <a href="#">LOGOUT</a>
+            <a href="#" id="images-link">My IMAGES</a>
+            <a href="#" id="feed-link" class="active">FEED</a>
+            <a href="#" id="connections-link">CONNECTIONS</a>
+            <a href="#" id="account-link">ACCOUNT</a>
+            <a href="#" id="logout-link">LOGOUT</a>
         </div>
         <div class="content">
             <div class="main-content" id="feed">
@@ -36,12 +36,26 @@
             document.getElementById('user-name').textContent = userName;
         }
 
+        function getuser_idFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('user_id');
+        }
+
+        function updateSidebarLinks(user_id) {
+            document.getElementById('images-link').href = `images.html?user_id=${user_id}`;
+            document.getElementById('feed-link').href = `feed.html?user_id=${user_id}`;
+            document.getElementById('connections-link').href = `connections.html?user_id=${user_id}`;
+            document.getElementById('account-link').href = `account.html?user_id=${user_id}`;
+            document.getElementById('logout-link').href = `logout.html?user_id=${user_id}`;
+        }
+
         function addCardClickListeners() {
             const cards = document.querySelectorAll('.feed-card');
             cards.forEach(card => {
                 card.addEventListener('click', function () {
                     const imageId = this.getAttribute('data-id');
-                    window.location.href = `image.html?id=${imageId}`;
+                    const user_id = getuser_idFromUrl();
+                    window.location.href = `image.html?id=${imageId}&user_id=${user_id}`;
                 });
             });
         }
@@ -82,7 +96,9 @@
             const feedContainer = document.getElementById('feed');
             feedContainer.innerHTML = '';
 
-            fetch('fetchFeedItems.action')
+            const user_id = getuser_idFromUrl();
+
+            fetch(`fetchFeedItems.action?user_id=${user_id}`)
                 .then(response => response.json())
                 .then(data => {
                     data.forEach(item => {
@@ -116,6 +132,8 @@
 
         window.onload = () => {
             loadUserName();
+            const user_id = getuser_idFromUrl();
+            updateSidebarLinks(user_id);
             loadFeedItems();
         };
     </script>

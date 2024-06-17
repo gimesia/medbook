@@ -2,7 +2,7 @@
 export const mockDataImages = [
     {
         id: 1,
-        userId: 101,
+        user_id: 101,
         image_reference: "./assets/ct.png",
         device: "CT",
         bodypart: "Head",
@@ -13,7 +13,7 @@ export const mockDataImages = [
     },
     {
         id: 2,
-        userId: 102,
+        user_id: 102,
         image_reference: "./assets/mri.png",
         device: "MRI",
         bodypart: "Spine",
@@ -24,7 +24,7 @@ export const mockDataImages = [
     },
     {
         id: 3,
-        userId: 103,
+        user_id: 103,
         image_reference: "./assets/xray.png",
         device: "Xray",
         bodypart: "Chest",
@@ -35,7 +35,7 @@ export const mockDataImages = [
     },
     {
         id: 4,
-        userId: 104,
+        user_id: 104,
         image_reference: "./assets/ct.png",
         device: "CT",
         bodypart: "Abdomen",
@@ -46,7 +46,7 @@ export const mockDataImages = [
     },
     {
         id: 5,
-        userId: 105,
+        user_id: 105,
         image_reference: "./assets/ct.png",
         device: "CT",
         bodypart: "Leg",
@@ -57,7 +57,7 @@ export const mockDataImages = [
     },
     {
         id: 6,
-        userId: 106,
+        user_id: 106,
         image_reference: "./assets/mri.png",
         device: "MRI",
         bodypart: "Brain",
@@ -68,7 +68,7 @@ export const mockDataImages = [
     },
     {
         id: 7,
-        userId: 107,
+        user_id: 107,
         image_reference: "./assets/xray.png",
         device: "Xray",
         bodypart: "Arm",
@@ -79,7 +79,7 @@ export const mockDataImages = [
     },
     {
         id: 8,
-        userId: 108,
+        user_id: 108,
         image_reference: "./assets/ct.png",
         device: "CT",
         bodypart: "Pelvis",
@@ -90,7 +90,7 @@ export const mockDataImages = [
     },
     {
         id: 9,
-        userId: 109,
+        user_id: 109,
         image_reference: "./assets/ct.png",
         device: "CT",
         bodypart: "Chest",
@@ -101,7 +101,7 @@ export const mockDataImages = [
     },
     {
         id: 10,
-        userId: 110,
+        user_id: 110,
         image_reference: "./assets/mri.png",
         device: "MRI",
         bodypart: "Knee",
@@ -112,7 +112,7 @@ export const mockDataImages = [
     },
     {
         id: 11,
-        userId: 111,
+        user_id: 111,
         image_reference: "./assets/xray.png",
         device: "Xray",
         bodypart: "Foot",
@@ -123,7 +123,7 @@ export const mockDataImages = [
     },
     {
         id: 12,
-        userId: 112,
+        user_id: 112,
         image_reference: "./assets/ct.png",
         device: "CT",
         bodypart: "Neck",
@@ -134,7 +134,7 @@ export const mockDataImages = [
     },
     {
         id: 13,
-        userId: 113,
+        user_id: 113,
         image_reference: "./assets/ct.png",
         device: "CT",
         bodypart: "Abdomen",
@@ -145,7 +145,7 @@ export const mockDataImages = [
     },
     {
         id: 14,
-        userId: 114,
+        user_id: 114,
         image_reference: "./assets/mri.png",
         device: "MRI",
         bodypart: "Shoulder",
@@ -156,7 +156,7 @@ export const mockDataImages = [
     },
     {
         id: 15,
-        userId: 115,
+        user_id: 115,
         image_reference: "./assets/xray.png",
         device: "Xray",
         bodypart: "Hand",
@@ -170,7 +170,7 @@ export const mockDataImages = [
 export const mockDataFeed = [
     {
         id: 1,
-        userId: 101,
+        user_id: 101,
         image_reference: "assets/ct.png",
         device: "CT",
         description: "CT Scan of the brain",
@@ -179,7 +179,7 @@ export const mockDataFeed = [
     },
     {
         id: 2,
-        userId: 102,
+        user_id: 102,
         image_reference: "assets/ct.png",
         device: "MRI",
         description: "MRI of the spine",
@@ -188,7 +188,7 @@ export const mockDataFeed = [
     },
     {
         id: 3,
-        userId: 103,
+        user_id: 103,
         image_reference: "assets/ct.png",
         device: "Xray",
         description: "Xray of the chest",

@@ -15,11 +15,11 @@
         <span id="user-name"></span>'s MedBook
     </div>
     <div class="sidebar">
-        <a href="images.html">My IMAGES</a>
-        <a href="feed.html">FEED</a>
-        <a href="connections.html" class="active">CONNECTIONS</a>
-        <a href="account.html">ACCOUNT</a>
-        <a href="#">LOGOUT</a>
+        <a href="#" id="images-link">My IMAGES</a>
+        <a href="#" id="feed-link">FEED</a>
+        <a href="#" id="connections-link" class="active">CONNECTIONS</a>
+        <a href="#" id="account-link">ACCOUNT</a>
+        <a href="#" id="logout-link">LOGOUT</a>
     </div>
     <div class="content">
         <div class="main-content" id="connections">
@@ -73,6 +73,19 @@
 
         function loadUserName() {
             document.getElementById('user-name').textContent = userName;
+        }
+
+        function getUserIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('user_id');
+        }
+
+        function updateSidebarLinks(userId) {
+            document.getElementById('images-link').href = `images.html?user_id=${userId}`;
+            document.getElementById('feed-link').href = `feed.html?user_id=${userId}`;
+            document.getElementById('connections-link').href = `connections.html?user_id=${userId}`;
+            document.getElementById('account-link').href = `account.html?user_id=${userId}`;
+            document.getElementById('logout-link').href = `logout.html?user_id=${userId}`;
         }
 
         function populateWithMockData() {
@@ -137,7 +150,9 @@
             const tableBody = document.querySelector('#connectionsTable');
             tableBody.innerHTML = '';
 
-            fetch('fetchConnections.action')
+            const userId = getUserIdFromUrl();
+
+            fetch(`fetchConnections.action?user_id=${userId}`)
                 .then(response => response.json())
                 .then(data => {
                     let filteredConnections = data.filter(connection => {
@@ -191,6 +206,8 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             loadUserName();
+            const userId = getUserIdFromUrl();
+            updateSidebarLinks(userId);
             loadConnections();
             document.getElementById('role').addEventListener('change', loadConnections);
             document.getElementById('connection').addEventListener('change', loadConnections);
