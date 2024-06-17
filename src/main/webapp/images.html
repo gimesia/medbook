@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedBook</title>
-    <!-- Include Materialize CSS -->
+    <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -50,7 +50,7 @@
         </div>
     </div>
     <script type="module">
-        import { mockDataImages } from "./mockData.js"
+        import { mockDataImages } from "./mockData.js";
 
         const userName = "Aron"; // You can change this dynamically
 
@@ -68,14 +68,14 @@
 
         function getUserIdFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('user_id');
+            return urlParams.get('userId');
         }
 
         function updateSidebarLinks(userId) {
-            document.getElementById('images-link').href = `images.html?user_id=${userId}`;
-            document.getElementById('feed-link').href = `feed.html?user_id=${userId}`;
-            document.getElementById('connections-link').href = `connections.html?user_id=${userId}`;
-            document.getElementById('account-link').href = `account.html?user_id=${userId}`;
+            document.getElementById('images-link').href = `images.html?userId=${userId}`;
+            document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
+            document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
+            document.getElementById('account-link').href = `account.html?userId=${userId}`;
         }
 
         function populateWithMockData(userId) {
@@ -91,16 +91,16 @@
 
             let filteredFeedItems = mockDataImages.filter(item => 
                 (deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase()) &&
-                item.user_id == userId
+                item.userId == userId
             );
 
             filteredFeedItems.sort((a, b) => {
                 if (sortCriteria === 'id') {
-                    return a.id - b.id;
+                    return a.imageId - b.imageId;
                 } else if (sortCriteria === 'diagnosis') {
                     return a.description.localeCompare(b.description);
                 } else if (sortCriteria === 'date') {
-                    return new Date(b.date) - new Date(a.date);
+                    return new Date(b.createdAt) - new Date(a.createdAt);
                 }
                 return 0;
             });
@@ -108,10 +108,10 @@
             filteredFeedItems.forEach(item => {
                 const feedItem = document.createElement('div');
                 feedItem.className = 'image-card interactive card mr-3 mb-3';
-                feedItem.setAttribute('data-id', item.id);
+                feedItem.setAttribute('data-id', item.imageId);
                 feedItem.innerHTML = `
-                    <img src="${item.image_reference.replace("./", "")}" alt="${item.bodypart}">
-                    <p>ID: ${item.id} <br>user_id: ${item.user_id}  <br> Date: ${formatDate(item.created_at)} <br> Device: ${item.device}</p>
+                    <img src="${item.imageReference.replace("./", "")}" alt="${item.bodypart}">
+                    <p>ID: ${item.imageId} <br>userId: ${item.userId} <br> Date: ${formatDate(item.createdAt)} <br> Device: ${item.device}</p>
                     <h3>${item.description}</h3>
                 `;
                 feedContainer.appendChild(feedItem);
@@ -119,21 +119,12 @@
             addCardClickListeners(userId);
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            loadUserName();
-            const userId = getUserIdFromUrl();
-            updateSidebarLinks(userId);
-            loadImageItems(userId);
-            document.getElementById('device').addEventListener('change', () => loadImageItems(userId));
-            document.getElementById('sort').addEventListener('change', () => loadImageItems(userId));
-        });
-
         function addCardClickListeners(userId) {
             const cards = document.querySelectorAll('.image-card');
             cards.forEach(card => {
                 card.addEventListener('click', function () {
                     const imageId = this.getAttribute('data-id');
-                    window.location.href = `image.html?id=${imageId}&user_id=${userId}`;
+                    window.location.href = `image.html?id=${imageId}&userId=${userId}`;
                 });
             });
         }
@@ -145,7 +136,7 @@
             feedContainer.innerHTML = '';
 
             try {
-                let response = await fetch(`/MedBook/getFeed?user_id=${userId}`);
+                let response = await fetch(`/MedBook/images-by-user-id?userId=${userId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -153,16 +144,16 @@
 
                 let filteredFeedItems = feedItems.filter(item => 
                     (deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase()) &&
-                    item.user_id == userId
+                    item.userId == userId
                 );
 
                 filteredFeedItems.sort((a, b) => {
                     if (sortCriteria === 'id') {
-                        return a.id - b.id;
+                        return a.imageId - b.imageId;
                     } else if (sortCriteria === 'diagnosis') {
                         return a.description.localeCompare(b.description);
                     } else if (sortCriteria === 'date') {
-                        return new Date(b.date) - new Date(a.date);
+                        return new Date(b.createdAt) - new Date(a.createdAt);
                     }
                     return 0;
                 });
@@ -170,10 +161,10 @@
                 filteredFeedItems.forEach(item => {
                     const feedItem = document.createElement('div');
                     feedItem.className = 'image-card interactive card mr-3 mb-3';
-                    feedItem.setAttribute('data-id', item.id);
+                    feedItem.setAttribute('data-id', item.imageId);
                     feedItem.innerHTML = `
-                        <img src="${item.image_reference.replace("./", "")}" alt="${item.bodypart}">
-                        <p>ID: ${item.id} <br>user_id: ${item.user_id}  <br> Date: ${formatDate(item.created_at)} <br> Device: ${item.device}</p>
+                        <img src="${item.imageReference.replace("./", "")}" alt="${item.bodypart}">
+                        <p>ID: ${item.imageId} <br>userId: ${item.userId} <br> Date: ${formatDate(item.createdAt)} <br> Device: ${item.device}</p>
                         <h3>${item.description}</h3>`;
                     feedContainer.appendChild(feedItem);
                 });
@@ -190,6 +181,7 @@
             const userId = getUserIdFromUrl();
             updateSidebarLinks(userId);
             loadImageItems(userId);
+
             document.getElementById('device').addEventListener('change', () => loadImageItems(userId));
             document.getElementById('sort').addEventListener('change', () => loadImageItems(userId));
         });

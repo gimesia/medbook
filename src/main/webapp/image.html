@@ -68,19 +68,19 @@
         return `${year}-${month}-${day}`;
     }
 
-    // Function to update sidebar links with the user_id parameter
+    // Function to update sidebar links with the userId parameter
     function updateSidebarLinks(userId) {
-        document.getElementById('images-link').href = `images.html?user_id=${userId}`;
-        document.getElementById('feed-link').href = `feed.html?user_id=${userId}`;
-        document.getElementById('connections-link').href = `connections.html?user_id=${userId}`;
-        document.getElementById('account-link').href = `account.html?user_id=${userId}`;
+        document.getElementById('images-link').href = `images.html?userId=${userId}`;
+        document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
+        document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
+        document.getElementById('account-link').href = `account.html?userId=${userId}`;
     }
 
     // Function to display the image data based on the ID
     async function displayImageData() {
         const params = getQueryParams();
         const imageId = parseInt(params.get('id'), 10);
-        const userId = params.get('user_id'); // Extract user_id as a string
+        const userId = params.get('userId'); // Extract userId as a string
 
         try {
             const response = await fetch(`image-by-id?imageId=${imageId}`);
