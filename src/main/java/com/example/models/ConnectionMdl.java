@@ -2,18 +2,18 @@ package com.example.models;
 
 import java.util.Date;
 
-public class Connection {
+public class ConnectionMdl {
     private int connectionId;
     private int user1Id;
     private int user2Id;
     private Date createdAt;
 
     // Default constructor
-    public Connection() {
+    public ConnectionMdl() {
     }
 
     // Parameterized constructor
-    public Connection(int connectionId, int user1Id, int user2Id, Date createdAt) {
+    public ConnectionMdl(int connectionId, int user1Id, int user2Id, Date createdAt) {
         this.connectionId = connectionId;
         this.user1Id = user1Id;
         this.user2Id = user2Id;
