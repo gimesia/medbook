@@ -1,9 +1,7 @@
 package com.example.actions.connection;
 
-import com.example.actions.image.ImagesByUserIdAction;
 import com.example.dao.ConnectionDao;
 import com.example.dao.ConnectionDaoImpl;
-import com.example.models.ConnectionMdl;
 import com.opensymphony.xwork2.ActionSupport;
 
 import org.slf4j.Logger;
@@ -16,6 +14,9 @@ public class AddConnectionAction extends ActionSupport {
     private int user2_id;
     private String errorMessage;
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
     public int getUser2_id() {
         return user2_id;
     }
