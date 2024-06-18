@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,208 +8,235 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
-
 <body>
-    <div class="topbar">
-        <span id="user-name"></span>'s MedBook
-    </div>
-    <div class="sidebar">
-        <a href="#" id="images-link">My IMAGES</a>
-        <a href="#" id="feed-link">FEED</a>
-        <a href="#" id="connections-link" class="active">CONNECTIONS</a>
-        <a href="#" id="account-link">ACCOUNT</a>
-        <a href="landing.html">LOGOUT</a>
-    </div>
-    <div class="content">
-        <div class="main-content" id="connections">
-            <div class="filter-bar">
-                <div class="filter-group">
-                    <label for="role">Role:</label>
-                    <select id="role" name="role" class="browser-default">
-                        <option value="all">All</option>
-                        <option value="doctor">Doctor</option>
-                        <option value="nurse">Nurse</option>
-                        <option value="patient">Patient</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="connection">Connection:</label>
-                    <select id="connection" name="connection" class="browser-default">
-                        <option value="all">All</option>
-                        <option value="connected">Connected</option>
-                        <option value="not-connected">Not Connected</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="sort">Sort By:</label>
-                    <select id="sort" name="sort" class="browser-default">
-                        <option value="username">Username</option>
-                        <option value="role">Role</option>
-                        <option value="connection">Connection</option>
-                    </select>
-                </div>
+<div class="topbar">
+    <span id="user-name"></span>'s MedBook
+</div>
+<div class="sidebar">
+    <a href="#" id="images-link">My IMAGES</a>
+    <a href="#" id="feed-link">FEED</a>
+    <a href="#" id="connections-link" class="active">CONNECTIONS</a>
+    <a href="#" id="account-link">ACCOUNT</a>
+    <a href="landing.html">LOGOUT</a>
+</div>
+<div class="content">
+    <div class="main-content" id="connections">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label for="role">Role:</label>
+                <select id="role" name="role" class="browser-default">
+                    <option value="all">All</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="patient">Patient</option>
+                </select>
             </div>
-            <table class="connections striped">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th>Connection</th>
-                    </tr>
-                </thead>
-                <tbody id="connectionsTable">
-                    <!-- Dynamic content will be inserted here -->
-                </tbody>
-            </table>
+            <div class="filter-group">
+                <label for="connection">Connection:</label>
+                <select id="connection" name="connection" class="browser-default">
+                    <option value="all">All</option>
+                    <option value="connected">Connected</option>
+                    <option value="not-connected">Not Connected</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="sort">Sort By:</label>
+                <select id="sort" name="sort" class="browser-default">
+                    <option value="username">Username</option>
+                    <option value="role">Role</option>
+                    <option value="connection">Connection</option>
+                </select>
+            </div>
         </div>
+        <table class="connections striped">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Connection</th>
+            </tr>
+            </thead>
+            <tbody id="connectionsTable">
+            <!-- Dynamic content will be inserted here -->
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <!-- Include JavaScript -->
-    <script type="module">
-        const userName = "ARON"; // You can change this dynamically
+<!-- Include JavaScript -->
+<script type="module">
+    const userName = "ARON"; // You can change this dynamically
 
-        function loadUserName() {
-            document.getElementById('user-name').textContent = userName;
-        }
+    function loadUserName() {
+        document.getElementById('user-name').textContent = userName;
+    }
 
-        function getUserIdFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('userId');
-        }
+    function getUserIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('userId');
+    }
 
-        function updateSidebarLinks(userId) {
-            document.getElementById('images-link').href = `images.html?userId=${userId}`;
-            document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
-            document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
-            document.getElementById('account-link').href = `account.html?userId=${userId}`;
-        }
+    function updateSidebarLinks(userId) {
+        document.getElementById('images-link').href = `images.html?userId=${userId}`;
+        document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
+        document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
+        document.getElementById('account-link').href = `account.html?userId=${userId}`;
+    }
 
-        function populateWithMockData() {
-            const roleFilter = document.getElementById('role').value;
-            const connectionFilter = document.getElementById('connection').value;
-            const sortCriteria = document.getElementById('sort').value;
-            const tableBody = document.querySelector('#connectionsTable');
-            tableBody.innerHTML = '';
+    function populateWithMockData() {
+        const roleFilter = document.getElementById('role').value;
+        const connectionFilter = document.getElementById('connection').value;
+        const sortCriteria = document.getElementById('sort').value;
+        const tableBody = document.querySelector('#connectionsTable');
+        tableBody.innerHTML = '';
 
-            const warnElement = document.createElement('div');
-            warnElement.innerHTML = "<h1>THIS IS MOCKDATA</h1>";
+        const warnElement = document.createElement('div');
+        warnElement.innerHTML = "<h1>THIS IS MOCKDATA</h1>";
 
-            document.getElementById('connections').appendChild(warnElement);
+        document.getElementById('connections').appendChild(warnElement);
 
-            let filteredConnections = mockConnections.filter(connection => {
-                const roleMatches = roleFilter === 'all' || connection.role === roleFilter;
-                const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.isConnected) || (connectionFilter === 'not-connected' && !connection.isConnected);
-                return roleMatches && connectionMatches;
-            });
-
-            // Sort the filtered connections based on the selected sort criteria
-            filteredConnections.sort((a, b) => {
-                if (sortCriteria === 'username') {
-                    return a.username.localeCompare(b.username);
-                } else if (sortCriteria === 'role') {
-                    return a.role.localeCompare(b.role);
-                } else if (sortCriteria === 'connection') {
-                    return b.isConnected - a.isConnected;
-                }
-                return 0;
-            });
-
-            filteredConnections.forEach(connection => {
-                const row = document.createElement('tr');
-
-                const usernameCell = document.createElement('td');
-                usernameCell.textContent = connection.username;
-                usernameCell.className = 'center-align';
-                row.appendChild(usernameCell);
-
-                const roleCell = document.createElement('td');
-                roleCell.textContent = connection.role;
-                roleCell.className = 'center-align';
-                row.appendChild(roleCell);
-
-                const actionCell = document.createElement('td');
-                actionCell.className = 'actions';
-                const button = document.createElement('button');
-                button.textContent = connection.isConnected ? 'CONNECTED' : 'ADD CONNECTION';
-                button.className = `btn ${connection.isConnected ? 'secondary secondary-btn' : 'primary'}`;
-                actionCell.appendChild(button);
-                row.appendChild(actionCell);
-
-                tableBody.appendChild(row);
-            });
-        }
-
-        function loadConnections() {
-            const roleFilter = document.getElementById('role').value;
-            const connectionFilter = document.getElementById('connection').value;
-            const sortCriteria = document.getElementById('sort').value;
-            const tableBody = document.querySelector('#connectionsTable');
-            tableBody.innerHTML = '';
-
-            const userId = getUserIdFromUrl();
-
-            fetch(`connections-feed-by-user-id.action?userId=${userId}`)
-                .then(response => response.json())
-                .then(data => {
-                    let filteredConnections = data.filter(connection => {
-                        const roleMatches = roleFilter === 'all' || connection.role === roleFilter;
-                        const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.isConnected) || (connectionFilter === 'not-connected' && !connection.isConnected);
-                        return roleMatches && connectionMatches;
-                    });
-
-                    // Sort the filtered connections based on the selected sort criteria
-                    filteredConnections.sort((a, b) => {
-                        if (sortCriteria === 'username') {
-                            return a.username.localeCompare(b.username);
-                        } else if (sortCriteria === 'role') {
-                            return a.role.localeCompare(b.role);
-                        } else if (sortCriteria === 'connection') {
-                            return b.isConnected - a.isConnected;
-                        }
-                        return 0;
-                    });
-
-                    filteredConnections.forEach(connection => {
-                        const row = document.createElement('tr');
-
-                        const usernameCell = document.createElement('td');
-                        usernameCell.textContent = connection.username;
-                        usernameCell.className = 'center-align';
-                        row.appendChild(usernameCell);
-
-                        const roleCell = document.createElement('td');
-                        roleCell.textContent = connection.role;
-                        roleCell.className = 'center-align';
-                        row.appendChild(roleCell);
-
-                        const actionCell = document.createElement('td');
-                        actionCell.className = 'actions';
-                        const button = document.createElement('button');
-                        button.textContent = connection.isConnected ? 'CONNECTED' : 'ADD CONNECTION';
-                        button.className = `btn ${connection.isConnected ? 'secondary secondary-btn' : 'primary'}`;
-                        actionCell.appendChild(button);
-                        row.appendChild(actionCell);
-
-                        tableBody.appendChild(row);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching connections:', error);
-                    tableBody.innerHTML = '<tr><td colspan="3">Error loading connections. Using mock data instead.</td></tr>';
-                    populateWithMockData();
-                });
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            loadUserName();
-            const userId = getUserIdFromUrl();
-            updateSidebarLinks(userId);
-            loadConnections();
-            document.getElementById('role').addEventListener('change', loadConnections);
-            document.getElementById('connection').addEventListener('change', loadConnections);
-            document.getElementById('sort').addEventListener('change', loadConnections);
+        let filteredConnections = mockConnections.filter(connection => {
+            const roleMatches = roleFilter === 'all' || connection.role === roleFilter;
+            const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.isConnected) || (connectionFilter === 'not-connected' && !connection.isConnected);
+            return roleMatches && connectionMatches;
         });
-    </script>
-</body>
 
+        // Sort the filtered connections based on the selected sort criteria
+        filteredConnections.sort((a, b) => {
+            if (sortCriteria === 'username') {
+                return a.username.localeCompare(b.username);
+            } else if (sortCriteria === 'role') {
+                return a.role.localeCompare(b.role);
+            } else if (sortCriteria === 'connection') {
+                return b.isConnected - a.isConnected;
+            }
+            return 0;
+        });
+
+        filteredConnections.forEach(connection => {
+            const row = document.createElement('tr');
+
+            const usernameCell = document.createElement('td');
+            usernameCell.textContent = connection.username;
+            usernameCell.className = 'center-align';
+            row.appendChild(usernameCell);
+
+            const roleCell = document.createElement('td');
+            roleCell.textContent = connection.role;
+            roleCell.className = 'center-align';
+            row.appendChild(roleCell);
+
+            const actionCell = document.createElement('td');
+            actionCell.className = 'actions';
+            const button = document.createElement('button');
+            button.textContent = connection.isConnected ? 'CONNECTED' : 'ADD CONNECTION';
+            button.className = `btn ${connection.isConnected ? 'secondary secondary-btn' : 'primary'}`;
+            button.dataset.userId = connection.userId;
+            button.addEventListener('click', () => addConnection(connection.userId));
+            actionCell.appendChild(button);
+            row.appendChild(actionCell);
+
+            tableBody.appendChild(row);
+        });
+    }
+
+    function loadConnections() {
+        const roleFilter = document.getElementById('role').value;
+        const connectionFilter = document.getElementById('connection').value;
+        const sortCriteria = document.getElementById('sort').value;
+        const tableBody = document.querySelector('#connectionsTable');
+        tableBody.innerHTML = '';
+
+        const userId = getUserIdFromUrl();
+
+        fetch(`connections-feed-by-user-id.action?userId=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                let filteredConnections = data.filter(connection => {
+                    const roleMatches = roleFilter === 'all' || connection.role === roleFilter;
+                    const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.isConnected) || (connectionFilter === 'not-connected' && !connection.isConnected);
+                    return roleMatches && connectionMatches;
+                });
+
+                // Sort the filtered connections based on the selected sort criteria
+                filteredConnections.sort((a, b) => {
+                    if (sortCriteria === 'username') {
+                        return a.username.localeCompare(b.username);
+                    } else if (sortCriteria === 'role') {
+                        return a.role.localeCompare(b.role);
+                    } else if (sortCriteria === 'connection') {
+                        return b.isConnected - a.isConnected;
+                    }
+                    return 0;
+                });
+
+                filteredConnections.forEach(connection => {
+                    const row = document.createElement('tr');
+
+                    const usernameCell = document.createElement('td');
+                    usernameCell.textContent = connection.username;
+                    usernameCell.className = 'center-align';
+                    row.appendChild(usernameCell);
+
+                    const roleCell = document.createElement('td');
+                    roleCell.textContent = connection.role;
+                    roleCell.className = 'center-align';
+                    row.appendChild(roleCell);
+
+                    const actionCell = document.createElement('td');
+                    actionCell.className = 'actions';
+                    const button = document.createElement('button');
+                    button.textContent = connection.isConnected ? 'CONNECTED' : 'ADD CONNECTION';
+                    button.className = `btn ${connection.isConnected ? 'secondary secondary-btn' : 'primary'}`;
+                    button.dataset.userId = connection.userId;
+                    button.addEventListener('click', () => addConnection(connection.userId));
+                    actionCell.appendChild(button);
+                    row.appendChild(actionCell);
+
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching connections:', error);
+                tableBody.innerHTML = '<tr><td colspan="3">Error loading connections. Using mock data instead.</td></tr>';
+                populateWithMockData();
+            });
+    }
+
+    function addConnection(user2Id) {
+        const user1Id = getUserIdFromUrl();
+
+        fetch('add-connection.action', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `user1Id=${user1Id}&user2Id=${user2Id}`
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Connection added successfully.');
+                    loadConnections();
+                } else {
+                    alert('Failed to add connection.');
+                }
+            })
+            .catch(error => {
+                console.error('Error adding connection:', error);
+                alert('Failed to add connection.');
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        loadUserName();
+        const userId = getUserIdFromUrl();
+        updateSidebarLinks(userId);
+        loadConnections();
+        document.getElementById('role').addEventListener('change', loadConnections);
+        document.getElementById('connection').addEventListener('change', loadConnections);
+        document.getElementById('sort').addEventListener('change', loadConnections);
+    });
+</script>
+</body>
 </html>
