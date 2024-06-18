@@ -66,7 +66,18 @@
 
             feedContainer.appendChild(warnElement);
 
-            mockDataFeed.forEach(item => {
+            const sortedData = mockDataFeed.sort((a, b) => new Date(a.date) - new Date(b.date));
+            let lastDate = '';
+
+            sortedData.forEach(item => {
+                if (item.date !== lastDate) {
+                    const dateDivider = document.createElement('div');
+                    dateDivider.className = 'date-divider my-4 border-t-2 border-gray-300';
+                    dateDivider.innerHTML = `<h2>${item.date}</h2>`;
+                    feedContainer.appendChild(dateDivider);
+                    lastDate = item.date;
+                }
+
                 const feedItem = document.createElement('div');
                 feedItem.className = 'feed-card interactive card';
                 feedItem.setAttribute('data-id', item.id);
@@ -81,7 +92,7 @@
                     </div>
                 </div>
                 <div>
-                    <img src="${item.imgRef}" alt="${item.description}">
+                    <img src="${item.imgReference}" alt="${item.description}">
                 </div>
             `;
                 feedContainer.appendChild(feedItem);
@@ -95,25 +106,37 @@
 
             const userId = getUserIdFromUrl();
 
-            fetch(`fetchFeedItems.action?userId=${userId}`)
+            fetch(`feed-by-user-id?userId=${userId}`)
                 .then(response => response.json())
                 .then(data => {
-                    data.forEach(item => {
+                    const sortedData = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                    let lastDate = '';
+
+                    sortedData.forEach(item => {
+                        const itemDate = item.createdAt.split('T')[0]; // Assuming createdAt is in ISO format
+                        if (itemDate !== lastDate) {
+                            const dateDivider = document.createElement('div');
+                            dateDivider.className = 'date-divider my-4 border-b-4 border-gray-300';
+                            dateDivider.innerHTML = `<h1>${itemDate}</h1>`;
+                            feedContainer.appendChild(dateDivider);
+                            lastDate = itemDate;
+                        }
+
                         const feedItem = document.createElement('div');
                         feedItem.className = 'feed-card interactive card';
-                        feedItem.setAttribute('data-id', item.id);
+                        feedItem.setAttribute('data-id', item.imageId);
                         feedItem.innerHTML = `
                         <div class="feed-card-content mr-4">
                             <div class="mb-2">
-                                <h2>&lt;${item.username}&gt;</h2>
+                                <h2>${item.username}</h2>
                             </div>
                             <div class="feed-card-info">
-                                <p>${item.date} <br> ${item.type}</p>
+                                <p>${item.createdAt.split('T')[0]} <br> ${item.device}</p>
                                 <h3>${item.description}</h3>
                             </div>
                         </div>
                         <div>
-                            <img src="${item.imgRef}" alt="${item.description}">
+                            <img src="${item.imageReference}" alt="${item.description}">
                         </div>
                     `;
                         feedContainer.appendChild(feedItem);

@@ -126,7 +126,14 @@
         </action>
 
         <!-- FEED -->
-
+        <action name="feed-by-user-id" class="com.example.actions.feed.GetFeedByUserIdAction">
+            <result name="success" type="json">
+                <param name="root">images</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">errorMessage</param>
+            </result>
+        </action>
         
     </package>
 </struts>

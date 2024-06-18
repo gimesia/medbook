@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.example.models.ConnectionMdl;
 import com.example.utils.DBUtil;
@@ -72,4 +74,31 @@ public class ConnectionDaoImpl implements ConnectionDao{
         }
     }
    
+  
+    @Override
+    public Set<Integer> getConnectedUserIdsByUserId(int userId) {
+        String query = "SELECT user1_id, user2_id FROM Connection WHERE user1_id = ? OR user2_id = ?";
+        Set<Integer> connectedUserIds = new HashSet<>();
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int user1Id = rs.getInt("user1_id");
+                int user2Id = rs.getInt("user2_id");
+                if (user1Id != userId) {
+                    connectedUserIds.add(user1Id);
+                }
+                if (user2Id != userId) {
+                    connectedUserIds.add(user2Id);
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Error fetching connected user IDs by user ID", e);
+        }
+        return connectedUserIds;
+    }
 }

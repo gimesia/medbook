@@ -2,8 +2,8 @@ package com.example.dao;
 
 import java.util.ArrayList;
 
-import com.example.models.Feed;
+import com.example.models.FeedItem;
 
 public interface FeedDao {
-      ArrayList<Feed> getFeedById(int id);
+      ArrayList<FeedItem> getFeedById(int id);
 }
