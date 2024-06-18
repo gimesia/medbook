@@ -51,7 +51,35 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<script type="module">
+    const userName = "Aron"; // You can change this dynamically
+
+    function fetchUserName(userId) {
+        return fetch(`username-by-id?userId=${userId}`)
+            .then(response => response.json())
+            .then(data => data)
+            .catch(error => {
+                console.error('Error fetching username:', error);
+                return 'Unknown User';
+            });
+    }
+
+    async function loadUserName() {
+        const userId = getUserIdFromUrl();
+        if (userId) {
+            const userName = await fetchUserName(userId);
+            document.getElementById('user-name').textContent = userName;
+        } else {
+            document.getElementById('user-name').textContent = 'Unknown User';
+        }
+    }
+    
+    function getUserIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('userId');
+    }
+
+
     // Function to get the query parameters from the URL
     function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
@@ -146,7 +174,11 @@
     document.getElementById('toggle-privacy-button').addEventListener('click', togglePrivacy);
 
     // Execute the function when the page loads
-    window.onload = displayImageData;
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        loadUserName()
+        displayImageData();
+    });
 </script>
 </body>
 </html>
