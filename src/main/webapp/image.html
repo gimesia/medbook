@@ -33,13 +33,13 @@
                         <div>Diagnosis: <span id="diagnosis">Diagnosis: &lt;diagnos&gt;</span></div>
                         <div>Description: <span id="description">Description: &lt;Desc&gt;</span></div>
                         <div class="image-prev-card-buttons">
-                            <button class="btn">edit</button>
-                            <button class="btn">share</button>
+                            <button class="btn" onclick="editImage()">edit</button>
+                            <button class="btn" id="toggle-privacy-button"></button>
                             <button class="btn">proc</button>
                         </div>
                     </div>
                     <div class="image-prev-card-image" id="image-display">
-                        <p>&lt;IMG&gt;</p>
+                        <img src="image.png" alt="Image" />
                     </div>
 
                     <div class="image-prev-card-nav">
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-<script type="module">
+<script type="text/javascript">
     // Function to get the query parameters from the URL
     function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
@@ -83,7 +83,7 @@
         const userId = params.get('userId'); // Extract userId as a string
 
         try {
-            const response = await fetch(`image-by-id?imageId=${imageId}`);
+            const response = await fetch(`image-by-id.action?imageId=${imageId}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -97,6 +97,12 @@
                 document.getElementById('diagnosis').textContent = data.diagnosis;
                 document.getElementById('description').textContent = data.description;
                 document.getElementById('image-display').innerHTML = `<img src="${data.imageReference}" alt="${data.description}">`;
+
+                // Update the toggle privacy button
+                const togglePrivacyButton = document.getElementById('toggle-privacy-button');
+                togglePrivacyButton.textContent = data.isPrivate ? 'Make Public' : 'Make Private';
+                togglePrivacyButton.className = `btn ${data.isPrivate ? 'bg-blue-500' : 'bg-green-500'}`;
+                togglePrivacyButton.dataset.isPrivate = data.isPrivate; // Store the current privacy status
             } else {
                 document.getElementById('image').innerHTML = '<p>Image not found</p>';
             }
@@ -109,9 +115,40 @@
         updateSidebarLinks(userId);
     }
 
+    // Function to toggle image privacy
+    async function togglePrivacy() {
+        const params = getQueryParams();
+        const imageId = parseInt(params.get('id'), 10);
+        const togglePrivacyButton = document.getElementById('toggle-privacy-button');
+        const isPrivate = togglePrivacyButton.dataset.isPrivate === 'true';
+
+        try {
+            const response = await fetch('toggle-image-privacy.action', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `imageId=${imageId}`
+            });
+            const result = await response.json();
+            if (result.success) {
+                // Toggle the privacy status locally
+                togglePrivacyButton.textContent = isPrivate ? 'Make Private' : 'Make Public';
+                togglePrivacyButton.className = `btn ${isPrivate ? 'bg-green-500' : 'bg-blue-500'}`;
+                togglePrivacyButton.dataset.isPrivate = (!isPrivate).toString();
+            } else {
+                console.error('Failed to toggle image privacy');
+            }
+        } catch (error) {
+            console.error('Error toggling image privacy:', error);
+        }
+    }
+
+    // Add event listener to toggle privacy button
+    document.getElementById('toggle-privacy-button').addEventListener('click', togglePrivacy);
+
     // Execute the function when the page loads
     window.onload = displayImageData;
 </script>
 </body>
-
 </html>
