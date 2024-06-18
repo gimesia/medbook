@@ -7,7 +7,7 @@
     --secondary-color: #28a745; /* Green for secondary actions */
     --secondary-dark-color: #19692c;
     --surface-light-color: #fff; /* White for surfaces */
-    --surface-color: #f8f9fa; /* Light grey background */
+    --surface-color: #ffffff; /* Light grey background */
     --surface-dark-color: #ccc; /* Darker surface color */
     --text-primary-color: #343a40; /* Dark grey for primary text */
     --text-secondary-color: #ffffff; /* White for text on primary */
@@ -287,8 +287,29 @@ table.connections td:nth-child(3) {
 }
 
 /* IMAGES PAGE */
+        
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 
+.image-card {
+    background-color: var(--surface-color);
+    padding: 16px;
+    width: 32vh;
+}
 
+.image-card:hover {
+    border: 1px solid var(--primary-color)
+}
+
+.image-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: var(--border-radius);
+}
 
 /* IMAGE PREVIEW PAGE  */
 .image-prev-card {
