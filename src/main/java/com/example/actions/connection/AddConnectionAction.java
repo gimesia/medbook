@@ -3,28 +3,36 @@ package com.example.actions.connection;
 import com.example.dao.ConnectionDao;
 import com.example.dao.ConnectionDaoImpl;
 import com.opensymphony.xwork2.ActionSupport;
-
+import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 
 public class AddConnectionAction extends ActionSupport {
     private static final Logger logger = LoggerFactory.getLogger(AddConnectionAction.class);
 
     private int user1Id;
     private int user2Id;
-    private String successMessage;
-    private String errorMessage;
 
+    @Override
     public String execute() {
-        try {
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("application/json");
+
+        try (PrintWriter out = response.getWriter()) {
             ConnectionDao connectionDao = new ConnectionDaoImpl();
             connectionDao.addConnection(user1Id, user2Id);
-            successMessage = "Connection added successfully.";
+            out.print("{\"success\":true}");
             return SUCCESS;
         } catch (Exception e) {
             logger.error("Error adding connection", e);
-            errorMessage = "Failed to add connection.";
+            try (PrintWriter out = response.getWriter()) {
+                out.print("{\"success\":false}");
+            } catch (Exception ex) {
+                logger.error("Error writing response", ex);
+            }
             return ERROR;
         }
     }
@@ -35,13 +43,5 @@ public class AddConnectionAction extends ActionSupport {
 
     public void setUser2Id(int user2Id) {
         this.user2Id = user2Id;
-    }
-
-    public String getSuccessMessage() {
-        return successMessage;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
     }
 }
