@@ -18,7 +18,6 @@
             <a href="#" id="images-link">My IMAGES</a>
             <a href="#" id="feed-link" class="active">FEED</a>
             <a href="#" id="connections-link">CONNECTIONS</a>
-            <a href="#" id="account-link">ACCOUNT</a>
             <a href="landing.html">LOGOUT</a>
         </div>
         <div class="content">
@@ -45,7 +44,6 @@
             document.getElementById('images-link').href = `images.html?userId=${userId}`;
             document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
             document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
-            document.getElementById('account-link').href = `account.html?userId=${userId}`;
         }
 
         function addCardClickListeners() {

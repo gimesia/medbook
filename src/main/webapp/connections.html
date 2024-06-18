@@ -9,59 +9,59 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<div class="topbar">
-    <span id="user-name"></span>'s MedBook
-</div>
-<div class="sidebar">
-    <a href="#" id="images-link">My IMAGES</a>
-    <a href="#" id="feed-link">FEED</a>
-    <a href="#" id="connections-link" class="active">CONNECTIONS</a>
-    <a href="#" id="account-link">ACCOUNT</a>
-    <a href="landing.html">LOGOUT</a>
-</div>
-<div class="content">
-    <div class="main-content" id="connections">
-        <div class="filter-bar">
-            <div class="filter-group">
-                <label for="role">Role:</label>
-                <select id="role" name="role" class="browser-default">
-                    <option value="all">All</option>
-                    <option value="doctor">Doctor</option>
-                    <option value="nurse">Nurse</option>
-                    <option value="patient">Patient</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="connection">Connection:</label>
-                <select id="connection" name="connection" class="browser-default">
-                    <option value="all">All</option>
-                    <option value="connected">Connected</option>
-                    <option value="not-connected">Not Connected</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="sort">Sort By:</label>
-                <select id="sort" name="sort" class="browser-default">
-                    <option value="username">Username</option>
-                    <option value="role">Role</option>
-                    <option value="connection">Connection</option>
-                </select>
-            </div>
-        </div>
-        <table class="connections striped">
-            <thead>
-            <tr>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Connection</th>
-            </tr>
-            </thead>
-            <tbody id="connectionsTable">
-            <!-- Dynamic content will be inserted here -->
-            </tbody>
-        </table>
+    <div class="topbar">
+        <span id="user-name"></span>'s MedBook
     </div>
-</div>
+    <div class="sidebar">
+        <a href="#" id="images-link">My IMAGES</a>
+        <a href="#" id="feed-link">FEED</a>
+        <a href="#" id="connections-link" class="active">CONNECTIONS</a>
+        <a href="#" id="account-link">ACCOUNT</a>
+        <a href="landing.html">LOGOUT</a>
+    </div>
+    <div class="content">
+        <div class="main-content" id="connections">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role" class="browser-default">
+                        <option value="all">All</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="nurse">Nurse</option>
+                        <option value="patient">Patient</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="connection">Connection:</label>
+                    <select id="connection" name="connection" class="browser-default">
+                        <option value="all">All</option>
+                        <option value="connected">Connected</option>
+                        <option value="not-connected">Not Connected</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sort">Sort By:</label>
+                    <select id="sort" name="sort" class="browser-default">
+                        <option value="username">Username</option>
+                        <option value="role">Role</option>
+                        <option value="connection">Connection</option>
+                    </select>
+                </div>
+            </div>
+            <table class="connections striped">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Connection</th>
+                    </tr>
+                </thead>
+                <tbody id="connectionsTable">
+                    <!-- Dynamic content will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 <!-- Include JavaScript -->
 <script type="module">
@@ -76,12 +76,12 @@
         return urlParams.get('userId');
     }
 
-    function updateSidebarLinks(userId) {
-        document.getElementById('images-link').href = `images.html?userId=${userId}`;
-        document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
-        document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
-        document.getElementById('account-link').href = `account.html?userId=${userId}`;
-    }
+        function updateSidebarLinks(userId) {
+            document.getElementById('images-link').href = `images.html?userId=${userId}`;
+            document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
+            document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
+            document.getElementById('account-link').href = `account.html?userId=${userId}`;
+        }
 
     function populateWithMockData() {
         const roleFilter = document.getElementById('role').value;
