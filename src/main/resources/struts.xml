@@ -116,6 +116,15 @@
             </result>
         </action>
 
+        <action name="delete-connection" class="com.example.actions.connection.DeleteConnectionAction">
+            <result name="success" type="json">
+                <param name="root"></param>
+            </result>
+            <result name="error" type="json">
+                <param name="root"></param>
+            </result>
+        </action>
+
         <!-- FEED -->
 
         

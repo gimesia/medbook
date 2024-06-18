@@ -55,5 +55,21 @@ public class ConnectionDaoImpl implements ConnectionDao{
         }
         return;
     }
+
+    @Override
+    public void deleteConnection(int user1Id, int user2Id) {
+        String sql = "DELETE FROM medbook_db.Connection WHERE (user1_id = ? AND user2_id = ?) OR (user1_id = ? AND user2_id = ?)";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, user1Id);
+            stmt.setInt(2, user2Id);
+            stmt.setInt(3, user2Id);
+            stmt.setInt(4, user1Id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Error deleting connection", e);
+        }
+    }
    
 }
