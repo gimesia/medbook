@@ -102,35 +102,6 @@
         warnElement.innerHTML = "<h1>THIS IS MOCKDATA</h1>";
 
         document.getElementById('images').appendChild(warnElement);
-
-        let filteredFeedItems = mockDataImages.filter(item => 
-            (deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase()) &&
-            item.userId == userId
-        );
-
-        filteredFeedItems.sort((a, b) => {
-            if (sortCriteria === 'id') {
-                return a.imageId - b.imageId;
-            } else if (sortCriteria === 'diagnosis') {
-                return a.description.localeCompare(b.description);
-            } else if (sortCriteria === 'date') {
-                return new Date(b.createdAt) - new Date(a.createdAt);
-            }
-            return 0;
-        });
-
-        filteredFeedItems.forEach(item => {
-            const feedItem = document.createElement('div');
-            feedItem.className = 'image-card interactive card mr-3 mb-3';
-            feedItem.setAttribute('data-id', item.imageId);
-            feedItem.innerHTML = `
-                <img src="${item.imageReference.replace("./", "")}" alt="${item.bodypart}">
-                <p>ID: ${item.imageId} <br>userId: ${item.userId} <br> Date: ${formatDate(item.createdAt)} <br> Device: ${item.device}</p>
-                <h3>${item.description}</h3>
-            `;
-            feedContainer.appendChild(feedItem);
-        });
-        addCardClickListeners(userId);
     }
 
     function addCardClickListeners(userId) {
@@ -178,7 +149,7 @@
                 feedItem.setAttribute('data-id', item.imageId);
                 feedItem.innerHTML = `
                     <img src="${item.imageReference.replace("./", "")}" alt="${item.bodypart}">
-                    <p>ID: ${item.imageId} <br>userId: ${item.userId} <br> Date: ${formatDate(item.createdAt)} <br> Device: ${item.device}</p>
+                    <p>ID: ${item.imageId} <br> Date: ${formatDate(item.createdAt)} <br> Device: ${item.device}</p>
                     <h3>${item.description}</h3>`;
                 feedContainer.appendChild(feedItem);
             });
