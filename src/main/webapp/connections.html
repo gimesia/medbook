@@ -99,7 +99,7 @@
 
             let filteredConnections = mockConnections.filter(connection => {
                 const roleMatches = roleFilter === 'all' || connection.role === roleFilter;
-                const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.connected) || (connectionFilter === 'not-connected' && !connection.connected);
+                const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.isConnected) || (connectionFilter === 'not-connected' && !connection.isConnected);
                 return roleMatches && connectionMatches;
             });
 
@@ -110,7 +110,7 @@
                 } else if (sortCriteria === 'role') {
                     return a.role.localeCompare(b.role);
                 } else if (sortCriteria === 'connection') {
-                    return b.connected - a.connected;
+                    return b.isConnected - a.isConnected;
                 }
                 return 0;
             });
@@ -131,8 +131,8 @@
                 const actionCell = document.createElement('td');
                 actionCell.className = 'actions';
                 const button = document.createElement('button');
-                button.textContent = connection.connected ? 'CONNECTED' : 'ADD CONNECTION';
-                button.className = `btn ${connection.connected ? 'secondary secondary-btn' : 'primary'}`;
+                button.textContent = connection.isConnected ? 'CONNECTED' : 'ADD CONNECTION';
+                button.className = `btn ${connection.isConnected ? 'secondary secondary-btn' : 'primary'}`;
                 actionCell.appendChild(button);
                 row.appendChild(actionCell);
 
@@ -154,7 +154,7 @@
                 .then(data => {
                     let filteredConnections = data.filter(connection => {
                         const roleMatches = roleFilter === 'all' || connection.role === roleFilter;
-                        const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.connected) || (connectionFilter === 'not-connected' && !connection.connected);
+                        const connectionMatches = connectionFilter === 'all' || (connectionFilter === 'connected' && connection.isConnected) || (connectionFilter === 'not-connected' && !connection.isConnected);
                         return roleMatches && connectionMatches;
                     });
 
@@ -165,7 +165,7 @@
                         } else if (sortCriteria === 'role') {
                             return a.role.localeCompare(b.role);
                         } else if (sortCriteria === 'connection') {
-                            return b.connected - a.connected;
+                            return b.isConnected - a.isConnected;
                         }
                         return 0;
                     });
@@ -186,8 +186,8 @@
                         const actionCell = document.createElement('td');
                         actionCell.className = 'actions';
                         const button = document.createElement('button');
-                        button.textContent = connection.connected ? 'CONNECTED' : 'ADD CONNECTION';
-                        button.className = `btn ${connection.connected ? 'secondary secondary-btn' : 'primary'}`;
+                        button.textContent = connection.isConnected ? 'CONNECTED' : 'ADD CONNECTION';
+                        button.className = `btn ${connection.isConnected ? 'secondary secondary-btn' : 'primary'}`;
                         actionCell.appendChild(button);
                         row.appendChild(actionCell);
 
