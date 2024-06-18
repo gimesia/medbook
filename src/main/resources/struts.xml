@@ -28,7 +28,16 @@
                 <param name="root">user</param>
             </result>
             <result name="error" type="json">
-                <param name="root">id</param>
+                <param name="root">errorMessage</param>
+            </result>
+        </action>
+
+        <action name="username-by-id" class="com.example.actions.user.GetUsernameByIdAction">
+            <result name="success" type="json">
+                <param name="root">username</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">errorMessage</param>
             </result>
         </action>
 
@@ -37,7 +46,7 @@
                 <param name="root">user</param>
             </result>
             <result name="error" type="json">
-                <param name="root">username</param>
+                <param name="root">errorMessage</param>
             </result>
         </action>
 
@@ -56,7 +65,7 @@
                 <param name="root">images</param>
             </result>
             <result name="error" type="json">
-                <param name="root">userId</param>
+                <param name="root">errorMessage</param>
             </result>
         </action>
         
@@ -65,7 +74,7 @@
                 <param name="root">images</param>
             </result>
             <result name="error" type="json">
-                <param name="root">userIds</param>
+                <param name="root">errorMessage</param>
             </result>
         </action>
         
@@ -74,7 +83,7 @@
                 <param name="root">image</param>
             </result>
             <result name="error" type="json">
-                <param name="root">imageId</param>
+                <param name="root">errorMessage</param>
             </result>
         </action>
 

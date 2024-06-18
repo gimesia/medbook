@@ -9,49 +9,74 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
-<body>
-<div class="layout">
-    <div class="topbar">
+<body class="h-screen flex flex-col">
+    <div class="topbar bg-gray-800 text-white p-4">
         <span id="user-name"></span>'s MedBook
     </div>
-    <div class="sidebar">
-        <a href="#" id="images-link">My IMAGES</a>
-        <a href="#" id="feed-link">FEED</a>
-        <a href="#" id="connections-link">CONNECTIONS</a>
-        <a href="landing.html">LOGOUT</a>
-    </div>
-    <div class="content">
-        <div class="main-content">
-            <div class="image-container" id="image">
-                <div class="image-prev-card card">
-                    <div class="image-prev-card-info" id="image-info">
-                        <div>Date: <span id="date"></span></div>
-                        <div>Location: <span id="location">&lt;MEDICAL CENTER&gt;</span></div>
-                        <div>Imaging type: <span id="type"></span></div>
-                        <div>Bodypart: <span id="bodypart">Body part: &lt;BP&gt;</span></div>
-                        <div>Diagnosis: <span id="diagnosis">Diagnosis: &lt;diagnos&gt;</span></div>
-                        <div>Description: <span id="description">Description: &lt;Desc&gt;</span></div>
-                        <div class="image-prev-card-buttons">
-                            <button class="btn" onclick="editImage()">edit</button>
-                            <button class="btn" id="toggle-privacy-button"></button>
-                            <button class="btn">proc</button>
+    <div class="flex flex-1">
+        <div class="sidebar bg-gray-200 w-1/5 p-4">
+            <a href="#" id="images-link" class="block py-2">My IMAGES</a>
+            <a href="#" id="feed-link" class="block py-2">FEED</a>
+            <a href="#" id="connections-link" class="block py-2">CONNECTIONS</a>
+            <a href="landing.html" class="block py-2">LOGOUT</a>
+        </div>
+        <div class="content flex-1 p-4">
+            <div class="main-content">
+                <div class="image-container" id="image">
+                    <div class="image-prev-card card bg-white shadow-md rounded-lg overflow-hidden">
+                        <div class="image-prev-card-info p-4 flex flex-col justify-between border-r-4" id="image-info">
+                            <div>
+                                <div class="mb-2"><span class="font-bold">Date:</span> <span id="date"></span></div>
+                                <div class="mb-2"><span class="font-bold">Location:</span> <span id="location">&lt;MEDICAL CENTER&gt;</span></div>
+                                <div class="mb-2"><span class="font-bold">Imaging type:</span> <span id="type"></span></div>
+                                <div class="mb-2">
+                                    Bodypart: <span id="bodypart">Body part: &lt;BP&gt;</span><br>
+                                    Diagnosis: <span id="diagnosis">Diagnosis: &lt;diagnos&gt;</span>
+                                </div>
+                                <div class="mb-2"><span class="font-bold">Description:</span> <span id="description">Description: &lt;Desc&gt;</span></div>
+                            </div>
+                            <div class="image-prev-card-buttons flex justify-around mt-4" id="action-buttons">
+                                <button class="btn bg-blue-500 text-white px-4 py-2 rounded" onclick="editImage()">edit</button>
+                                <button class="btn bg-blue-500 text-white px-4 py-2 rounded" id="toggle-privacy-button" style="display: none;"></button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="image-prev-card-image" id="image-display">
-                        <img src="image.png" alt="Image" />
-                    </div>
-
-                    <div class="image-prev-card-nav">
-                        <button class="btn">&lt;</button>
-                        <button class="btn">&gt;</button>
+                        <div class="image-prev-card-image flex justify-center items-center overflow-hidden" id="image-display">
+                            <img src="assets/med.jpg" alt="Image" class="w-full h-full object-cover" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
+<script type="module">
+    const userName = "Aron"; // You can change this dynamically
+
+    function fetchUserName(userId) {
+        return fetch(`username-by-id?userId=${userId}`)
+            .then(response => response.json())
+            .then(data => data)
+            .catch(error => {
+                console.error('Error fetching username:', error);
+                return 'Unknown User';
+            });
+    }
+
+    async function loadUserName() {
+        const userId = getUserIdFromUrl();
+        if (userId) {
+            const userName = await fetchUserName(userId);
+            document.getElementById('user-name').textContent = userName;
+        } else {
+            document.getElementById('user-name').textContent = 'Unknown User';
+        }
+    }
+    
+    function getUserIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('userId');
+    }
+
     // Function to get the query parameters from the URL
     function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
@@ -94,13 +119,34 @@
                 document.getElementById('bodypart').textContent = data.bodypart;
                 document.getElementById('diagnosis').textContent = data.diagnosis;
                 document.getElementById('description').textContent = data.description;
-                document.getElementById('image-display').innerHTML = `<img src="${data.imageReference}" alt="${data.description}">`;
+                document.getElementById('image-display').innerHTML = `<img src="${data.imageReference}" alt="${data.description}" class="w-full h-full object-cover">`;
 
-                // Update the toggle privacy button
+                // Check if the userId matches before displaying the toggle privacy button
                 const togglePrivacyButton = document.getElementById('toggle-privacy-button');
+                
+                togglePrivacyButton.style.display = 'block';
                 togglePrivacyButton.textContent = data.isPrivate ? 'Make Public' : 'Make Private';
                 togglePrivacyButton.className = `btn ${data.isPrivate ? 'bg-blue-500' : 'bg-green-500'}`;
                 togglePrivacyButton.dataset.isPrivate = data.isPrivate; // Store the current privacy status
+
+                // Display the userId and username if it does not match the current userId
+                if (userId != data.userId) {
+                    const imageInfo = document.getElementById('image-info');
+                    const userIdDiv = document.createElement('div');
+                    userIdDiv.classList.add('mb-2');
+                    userIdDiv.innerHTML = `<span class="font-bold">User ID:</span> <span>${data.userId}</span>`;
+                    imageInfo.insertBefore(userIdDiv, imageInfo.children[imageInfo.children.length - 1]);
+                    
+                    const userName = await fetchUserName(data.userId);
+                    const userNameDiv = document.createElement('div');
+                    userNameDiv.classList.add('mb-2');
+                    userNameDiv.innerHTML = `<span class="font-bold">Username:</span> <span>${userName}</span>`;
+                    imageInfo.insertBefore(userNameDiv, imageInfo.children[imageInfo.children.length - 1]);
+
+                    const actionButtons = document.getElementById('action-buttons');
+                    actionButtons.remove()
+                }
+
             } else {
                 document.getElementById('image').innerHTML = '<p>Image not found</p>';
             }
@@ -146,7 +192,10 @@
     document.getElementById('toggle-privacy-button').addEventListener('click', togglePrivacy);
 
     // Execute the function when the page loads
-    window.onload = displayImageData;
+    document.addEventListener('DOMContentLoaded', function () {
+        loadUserName();
+        displayImageData();
+    });
 </script>
 </body>
 </html>

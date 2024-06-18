@@ -5,6 +5,7 @@ import com.example.dao.UserDaoImpl;
 import com.example.models.User;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,10 +59,12 @@ public class GetUserInfoByUsernameAction extends ActionSupport implements Sessio
         this.role = role;
     }
 
+
     @Override
     public void setSession(Map<String, Object> session) {
         this.session = session;
     }
+
 
     public String register() {
         try {

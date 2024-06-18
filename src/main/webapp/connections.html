@@ -16,7 +16,6 @@
         <a href="#" id="images-link">My IMAGES</a>
         <a href="#" id="feed-link">FEED</a>
         <a href="#" id="connections-link" class="active">CONNECTIONS</a>
-        <a href="#" id="account-link">ACCOUNT</a>
         <a href="landing.html">LOGOUT</a>
     </div>
     <div class="content">
@@ -67,8 +66,24 @@
 <script type="module">
     const userName = "ARON"; // You can change this dynamically
 
-    function loadUserName() {
-        document.getElementById('user-name').textContent = userName;
+    function fetchUserName(userId) {
+        return fetch(`username-by-id?userId=${userId}`)
+            .then(response => response.json())
+            .then(data => data)
+            .catch(error => {
+                console.error('Error fetching username:', error);
+                return 'Unknown User';
+            });
+    }
+
+    async function loadUserName() {
+        const userId = getUserIdFromUrl();
+        if (userId) {
+            const userName = await fetchUserName(userId);
+            document.getElementById('user-name').textContent = userName;
+        } else {
+            document.getElementById('user-name').textContent = 'Unknown User';
+        }
     }
 
     function getUserIdFromUrl() {
@@ -80,7 +95,6 @@
             document.getElementById('images-link').href = `images.html?userId=${userId}`;
             document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
             document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
-            document.getElementById('account-link').href = `account.html?userId=${userId}`;
         }
 
     function populateWithMockData() {

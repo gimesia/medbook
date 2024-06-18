@@ -48,46 +48,86 @@
             </div>
         </div>
     </div>
-    <script type="module">
-        import { mockDataImages } from "./mockData.js";
+<script type="module">
+    import { mockDataImages } from "./mockData.js";
 
-        const userName = "Aron"; // You can change this dynamically
+    const userName = "Aron"; // You can change this dynamically
 
-        function loadUserName() {
+    function fetchUserName(userId) {
+        return fetch(`username-by-id?userId=${userId}`)
+            .then(response => response.json())
+            .then(data => data)
+            .catch(error => {
+                console.error('Error fetching username:', error);
+                return 'Unknown User';
+            });
+    }
+
+    async function loadUserName() {
+        const userId = getUserIdFromUrl();
+        if (userId) {
+            const userName = await fetchUserName(userId);
             document.getElementById('user-name').textContent = userName;
+        } else {
+            document.getElementById('user-name').textContent = 'Unknown User';
         }
+    }
 
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
 
-        function getUserIdFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('userId');
-        }
+    function getUserIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('userId');
+    }
 
-        function updateSidebarLinks(userId) {
-            document.getElementById('images-link').href = `images.html?userId=${userId}`;
-            document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
-            document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
-        }
+    function updateSidebarLinks(userId) {
+        document.getElementById('images-link').href = `images.html?userId=${userId}`;
+        document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
+        document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
+    }
 
-        function populateWithMockData(userId) {
-            const deviceFilter = document.getElementById('device').value;
-            const sortCriteria = document.getElementById('sort').value;
-            const feedContainer = document.getElementById('images');
-            feedContainer.innerHTML = '';
+    function populateWithMockData(userId) {
+        const deviceFilter = document.getElementById('device').value;
+        const sortCriteria = document.getElementById('sort').value;
+        const feedContainer = document.getElementById('images');
+        feedContainer.innerHTML = '';
 
-            const warnElement = document.createElement('div');
-            warnElement.innerHTML = "<h1>THIS IS MOCKDATA</h1>";
+        const warnElement = document.createElement('div');
+        warnElement.innerHTML = "<h1>THIS IS MOCKDATA</h1>";
 
-            document.getElementById('images').appendChild(warnElement);
+        document.getElementById('images').appendChild(warnElement);
+    }
 
-            let filteredFeedItems = mockDataImages.filter(item => 
+    function addCardClickListeners(userId) {
+        const cards = document.querySelectorAll('.image-card');
+        cards.forEach(card => {
+            card.addEventListener('click', function () {
+                const imageId = this.getAttribute('data-id');
+                window.location.href = `image.html?id=${imageId}&userId=${userId}`;
+            });
+        });
+    }
+
+    async function loadImageItems(userId) {
+        const deviceFilter = document.getElementById('device').value;
+        const sortCriteria = document.getElementById('sort').value;
+        const feedContainer = document.getElementById('images');
+        feedContainer.innerHTML = '';
+
+        try {
+            let response = await fetch(`/MedBook/images-by-user-id?userId=${userId}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            let feedItems = await response.json();
+
+            let filteredFeedItems = feedItems.filter(item => 
                 (deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase()) &&
                 item.userId == userId
             );
@@ -109,81 +149,28 @@
                 feedItem.setAttribute('data-id', item.imageId);
                 feedItem.innerHTML = `
                     <img src="${item.imageReference.replace("./", "")}" alt="${item.bodypart}">
-                    <p>ID: ${item.imageId} <br>userId: ${item.userId} <br> Date: ${formatDate(item.createdAt)} <br> Device: ${item.device}</p>
-                    <h3>${item.description}</h3>
-                `;
+                    <p>ID: ${item.imageId} <br> Date: ${formatDate(item.createdAt)} <br> Device: ${item.device}</p>
+                    <h3>${item.description}</h3>`;
                 feedContainer.appendChild(feedItem);
             });
             addCardClickListeners(userId);
+        } catch (error) {
+            console.error('Error fetching feed items:', error);
+            feedContainer.innerHTML = '<p>Error loading feed items. Using mock data instead.</p>';
+            populateWithMockData(userId);
         }
+    }
 
-        function addCardClickListeners(userId) {
-            const cards = document.querySelectorAll('.image-card');
-            cards.forEach(card => {
-                card.addEventListener('click', function () {
-                    const imageId = this.getAttribute('data-id');
-                    window.location.href = `image.html?id=${imageId}&userId=${userId}`;
-                });
-            });
-        }
+    document.addEventListener('DOMContentLoaded', function () {
+        loadUserName();
+        const userId = getUserIdFromUrl();
+        updateSidebarLinks(userId);
+        loadImageItems(userId);
 
-        async function loadImageItems(userId) {
-            const deviceFilter = document.getElementById('device').value;
-            const sortCriteria = document.getElementById('sort').value;
-            const feedContainer = document.getElementById('images');
-            feedContainer.innerHTML = '';
-
-            try {
-                let response = await fetch(`/MedBook/images-by-user-id?userId=${userId}`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                let feedItems = await response.json();
-
-                let filteredFeedItems = feedItems.filter(item => 
-                    (deviceFilter === 'all' || item.device.toLowerCase() === deviceFilter.toLowerCase()) &&
-                    item.userId == userId
-                );
-
-                filteredFeedItems.sort((a, b) => {
-                    if (sortCriteria === 'id') {
-                        return a.imageId - b.imageId;
-                    } else if (sortCriteria === 'diagnosis') {
-                        return a.description.localeCompare(b.description);
-                    } else if (sortCriteria === 'date') {
-                        return new Date(b.createdAt) - new Date(a.createdAt);
-                    }
-                    return 0;
-                });
-
-                filteredFeedItems.forEach(item => {
-                    const feedItem = document.createElement('div');
-                    feedItem.className = 'image-card interactive card mr-3 mb-3';
-                    feedItem.setAttribute('data-id', item.imageId);
-                    feedItem.innerHTML = `
-                        <img src="${item.imageReference.replace("./", "")}" alt="${item.bodypart}">
-                        <p>ID: ${item.imageId} <br>userId: ${item.userId} <br> Date: ${formatDate(item.createdAt)} <br> Device: ${item.device}</p>
-                        <h3>${item.description}</h3>`;
-                    feedContainer.appendChild(feedItem);
-                });
-                addCardClickListeners(userId);
-            } catch (error) {
-                console.error('Error fetching feed items:', error);
-                feedContainer.innerHTML = '<p>Error loading feed items. Using mock data instead.</p>';
-                populateWithMockData(userId);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            loadUserName();
-            const userId = getUserIdFromUrl();
-            updateSidebarLinks(userId);
-            loadImageItems(userId);
-
-            document.getElementById('device').addEventListener('change', () => loadImageItems(userId));
-            document.getElementById('sort').addEventListener('change', () => loadImageItems(userId));
-        });
-    </script>
+        document.getElementById('device').addEventListener('change', () => loadImageItems(userId));
+        document.getElementById('sort').addEventListener('change', () => loadImageItems(userId));
+    });
+</script>
 </body>
 
 </html>
