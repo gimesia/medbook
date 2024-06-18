@@ -76,17 +76,17 @@
             <result name="error" type="json">
                 <param name="root">imageId</param>
             </result>
-        </action> 
+        </action>
 
         <action name="toggle-image-privacy" class="com.example.actions.image.UpdateImagePrivacyAction">
             <result name="success" type="json">
                 <param name="root"></param>
             </result>
             <result name="error" type="json">
-                <param name="root">imageId</param>
+                <param name="root"></param>
             </result>
         </action>
-        
+
 
         <!-- CONNECTION -->
         <action name="connections-by-user-id" class="com.example.actions.connection.GetConnectionsByUserIdAction">
@@ -113,6 +113,15 @@
             </result>
             <result name="error" type="json">
                 <param name="root">errorMessage</param>
+            </result>
+        </action>
+
+        <action name="delete-connection" class="com.example.actions.connection.DeleteConnectionAction">
+            <result name="success" type="json">
+                <param name="root"></param>
+            </result>
+            <result name="error" type="json">
+                <param name="root"></param>
             </result>
         </action>
 

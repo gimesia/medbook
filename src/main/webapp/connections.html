@@ -132,7 +132,7 @@
             button.textContent = connection.isConnected ? 'CONNECTED' : 'ADD CONNECTION';
             button.className = `btn ${connection.isConnected ? 'secondary secondary-btn' : 'primary'}`;
             button.dataset.userId = connection.userId;
-            button.addEventListener('click', () => addConnection(connection.userId));
+            button.addEventListener('click', () => toggleConnection(connection.userId, connection.isConnected));
             actionCell.appendChild(button);
             row.appendChild(actionCell);
 
@@ -189,7 +189,7 @@
                     button.textContent = connection.isConnected ? 'CONNECTED' : 'ADD CONNECTION';
                     button.className = `btn ${connection.isConnected ? 'secondary secondary-btn' : 'primary'}`;
                     button.dataset.userId = connection.userId;
-                    button.addEventListener('click', () => addConnection(connection.userId));
+                    button.addEventListener('click', () => toggleConnection(connection.userId, connection.isConnected));
                     actionCell.appendChild(button);
                     row.appendChild(actionCell);
 
@@ -203,10 +203,11 @@
             });
     }
 
-    function addConnection(user2Id) {
+    function toggleConnection(user2Id, isConnected) {
         const user1Id = getUserIdFromUrl();
+        const action = isConnected ? 'delete-connection' : 'add-connection';
 
-        fetch('add-connection.action', {
+        fetch(`${action}.action`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -216,15 +217,14 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Connection added successfully.');
                     loadConnections();
                 } else {
-                    alert('Failed to add connection.');
+                    alert(`Failed to ${isConnected ? 'delete' : 'add'} connection.`);
                 }
             })
             .catch(error => {
-                console.error('Error adding connection:', error);
-                alert('Failed to add connection.');
+                console.error(`Error ${isConnected ? 'deleting' : 'adding'} connection:`, error);
+                alert(`Failed to ${isConnected ? 'delete' : 'add'} connection.`);
             });
     }
 
