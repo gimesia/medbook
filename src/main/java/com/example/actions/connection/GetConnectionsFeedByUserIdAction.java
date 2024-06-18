@@ -53,7 +53,7 @@ public class GetConnectionsFeedByUserIdAction extends ActionSupport {
             ArrayList<ConnectionMdl> connections = connectionDao.getConnectionsByUserId(userId);
 
             if (allUsers != null && !allUsers.isEmpty()) {
-                if (connections != null && !connections.isEmpty()) {
+                if (connections != null) {
                     for (User user : allUsers) {
                         if (user.getUserId() == userId) {
                             continue; // Skip the user itself
