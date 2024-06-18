@@ -19,7 +19,7 @@
             <a href="#" id="feed-link" class="active">FEED</a>
             <a href="#" id="connections-link">CONNECTIONS</a>
             <a href="#" id="account-link">ACCOUNT</a>
-            <a href="#" id="logout-link">LOGOUT</a>
+            <a href="landing.html">LOGOUT</a>
         </div>
         <div class="content">
             <div class="main-content" id="feed">
@@ -36,17 +36,16 @@
             document.getElementById('user-name').textContent = userName;
         }
 
-        function getuser_idFromUrl() {
+        function getUserIdFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('user_id');
+            return urlParams.get('userId');
         }
 
-        function updateSidebarLinks(user_id) {
-            document.getElementById('images-link').href = `images.html?user_id=${user_id}`;
-            document.getElementById('feed-link').href = `feed.html?user_id=${user_id}`;
-            document.getElementById('connections-link').href = `connections.html?user_id=${user_id}`;
-            document.getElementById('account-link').href = `account.html?user_id=${user_id}`;
-            document.getElementById('logout-link').href = `logout.html?user_id=${user_id}`;
+        function updateSidebarLinks(userId) {
+            document.getElementById('images-link').href = `images.html?userId=${userId}`;
+            document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
+            document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
+            document.getElementById('account-link').href = `account.html?userId=${userId}`;
         }
 
         function addCardClickListeners() {
@@ -54,8 +53,8 @@
             cards.forEach(card => {
                 card.addEventListener('click', function () {
                     const imageId = this.getAttribute('data-id');
-                    const user_id = getuser_idFromUrl();
-                    window.location.href = `image.html?id=${imageId}&user_id=${user_id}`;
+                    const userId = getUserIdFromUrl();
+                    window.location.href = `image.html?id=${imageId}&userId=${userId}`;
                 });
             });
         }
@@ -96,9 +95,9 @@
             const feedContainer = document.getElementById('feed');
             feedContainer.innerHTML = '';
 
-            const user_id = getuser_idFromUrl();
+            const userId = getUserIdFromUrl();
 
-            fetch(`fetchFeedItems.action?user_id=${user_id}`)
+            fetch(`fetchFeedItems.action?userId=${userId}`)
                 .then(response => response.json())
                 .then(data => {
                     data.forEach(item => {
@@ -132,8 +131,8 @@
 
         window.onload = () => {
             loadUserName();
-            const user_id = getuser_idFromUrl();
-            updateSidebarLinks(user_id);
+            const userId = getUserIdFromUrl();
+            updateSidebarLinks(userId);
             loadFeedItems();
         };
     </script>

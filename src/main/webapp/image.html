@@ -15,11 +15,11 @@
         <span id="user-name"></span>'s MedBook
     </div>
     <div class="sidebar">
-        <a href="images.html">My IMAGES</a>
-        <a href="feed.html">FEED</a>
-        <a href="connections.html">CONNECTIONS</a>
-        <a href="account.html">ACCOUNT</a>
-        <a href="#">LOGOUT</a>
+        <a href="#" id="images-link">My IMAGES</a>
+        <a href="#" id="feed-link">FEED</a>
+        <a href="#" id="connections-link">CONNECTIONS</a>
+        <a href="#" id="account-link">ACCOUNT</a>
+        <a href="landing.html">LOGOUT</a>
     </div>
     <div class="content">
         <div class="main-content">
@@ -68,10 +68,19 @@
         return `${year}-${month}-${day}`;
     }
 
+    // Function to update sidebar links with the userId parameter
+    function updateSidebarLinks(userId) {
+        document.getElementById('images-link').href = `images.html?userId=${userId}`;
+        document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
+        document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
+        document.getElementById('account-link').href = `account.html?userId=${userId}`;
+    }
+
     // Function to display the image data based on the ID
     async function displayImageData() {
         const params = getQueryParams();
         const imageId = parseInt(params.get('id'), 10);
+        const userId = params.get('userId'); // Extract userId as a string
 
         try {
             const response = await fetch(`image-by-id?imageId=${imageId}`);
@@ -95,6 +104,9 @@
             console.error('Error fetching image data:', error);
             document.getElementById('image').innerHTML = '<p>Error fetching image data</p>';
         }
+
+        // Update sidebar links
+        updateSidebarLinks(userId);
     }
 
     // Execute the function when the page loads

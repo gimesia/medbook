@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedBook</title>
-    <!-- Include Materialize CSS -->
+    <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -19,7 +19,7 @@
         <a href="#" id="feed-link">FEED</a>
         <a href="#" id="connections-link" class="active">CONNECTIONS</a>
         <a href="#" id="account-link">ACCOUNT</a>
-        <a href="#" id="logout-link">LOGOUT</a>
+        <a href="landing.html">LOGOUT</a>
     </div>
     <div class="content">
         <div class="main-content" id="connections">
@@ -65,10 +65,8 @@
         </div>
     </div>
 
-    <!-- Include Materialize JS -->
+    <!-- Include JavaScript -->
     <script type="module">
-        import { mockConnections } from './mockData.js';
-
         const userName = "ARON"; // You can change this dynamically
 
         function loadUserName() {
@@ -77,15 +75,14 @@
 
         function getUserIdFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('user_id');
+            return urlParams.get('userId');
         }
 
         function updateSidebarLinks(userId) {
-            document.getElementById('images-link').href = `images.html?user_id=${userId}`;
-            document.getElementById('feed-link').href = `feed.html?user_id=${userId}`;
-            document.getElementById('connections-link').href = `connections.html?user_id=${userId}`;
-            document.getElementById('account-link').href = `account.html?user_id=${userId}`;
-            document.getElementById('logout-link').href = `logout.html?user_id=${userId}`;
+            document.getElementById('images-link').href = `images.html?userId=${userId}`;
+            document.getElementById('feed-link').href = `feed.html?userId=${userId}`;
+            document.getElementById('connections-link').href = `connections.html?userId=${userId}`;
+            document.getElementById('account-link').href = `account.html?userId=${userId}`;
         }
 
         function populateWithMockData() {
@@ -152,7 +149,7 @@
 
             const userId = getUserIdFromUrl();
 
-            fetch(`fetchConnections.action?user_id=${userId}`)
+            fetch(`connections-feed-by-user-id.action?userId=${userId}`)
                 .then(response => response.json())
                 .then(data => {
                     let filteredConnections = data.filter(connection => {
