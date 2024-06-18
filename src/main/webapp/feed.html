@@ -7,6 +7,48 @@
     <title>MedBook</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .feed-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: var(--primary-text-color);
+            padding: 20px;
+            width: 100%;
+            margin: 1vh 0;
+        }
+
+        .feed-card img {
+            border-radius: 10px;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .feed-card-content {
+            flex: 1;
+            margin-right: 16px;
+        }
+
+        .feed-card-content h2 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .feed-card-content p {
+            margin: 5px 0 20px;
+            font-size: 16px;
+        }
+
+        .date-divider {
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -82,7 +124,7 @@
                 feedItem.className = 'feed-card interactive card';
                 feedItem.setAttribute('data-id', item.id);
                 feedItem.innerHTML = `
-                <div class="feed-card-content mr-4">
+                <div class="feed-card-content">
                     <div class="mb-2">
                         <h2>&lt;${item.username}&gt;</h2>
                     </div>
@@ -126,7 +168,7 @@
                         feedItem.className = 'feed-card interactive card';
                         feedItem.setAttribute('data-id', item.imageId);
                         feedItem.innerHTML = `
-                        <div class="feed-card-content mr-4">
+                        <div class="feed-card-content">
                             <div class="mb-2">
                                 <h2>${item.username}</h2>
                             </div>

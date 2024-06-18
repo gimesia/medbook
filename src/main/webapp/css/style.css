@@ -245,61 +245,7 @@ table.connections td:nth-child(3) {
 }
 
 /* FEED PAGE */
-.feed-card {
-    align-self: center;
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    justify-content: space-between;
-    background-color: var(--surface-color);
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: var(--primary-text-color);
-    padding: 20px;
-    min-width: 50vw;
-    max-width: 1000px;
-    margin: 1vh 0 1vh 0
-}
 
-
-.feed-card img {
-    border-radius: 10px;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    float: right;
-}
-
-.feed-card-content {
-    flex: 1;
-    justify-content: space-between;
-}
-
-.feed-card-content h2 {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.feed-card-content p {
-    margin: 5px 0 20px;
-    font-size: 16px;
-}
-
-.feed-card-content .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 2px solid #fff;
-    border-radius: 5px;
-    background-color: transparent;
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.feed-card-content .btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
 
 /* IMAGES PAGE */
 
