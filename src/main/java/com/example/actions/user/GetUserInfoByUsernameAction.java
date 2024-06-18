@@ -13,11 +13,21 @@ import java.util.Map;
 public class GetUserInfoByUsernameAction extends ActionSupport implements SessionAware {
     private static final Logger logger = LoggerFactory.getLogger(GetUserInfoByUsernameAction.class);
 
+    private int userId;
     private String username;
     private String password;
     private String role;
     private UserDao userDao;
     private Map<String, Object> session;
+
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public GetUserInfoByUsernameAction() {
         userDao = new UserDaoImpl();
@@ -73,6 +83,7 @@ public class GetUserInfoByUsernameAction extends ActionSupport implements Sessio
             User user = userDao.getUserByUsername(username);
             if (user != null && user.getPasswordHash().equals(password)) { // Assume password is hashed
                 session.put("user", user);
+                userId = user.getUserId();
                 return SUCCESS;
             } else {
                 addActionError("Invalid username or password.");

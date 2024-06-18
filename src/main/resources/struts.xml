@@ -7,7 +7,7 @@
         </action>
 
         <action name="login-user" class="com.example.actions.user.GetUserInfoByUsernameAction" method="login">
-            <result name="success">/images.html</result>
+            <result name="success" type="redirect">/images.html?userId=${userId}</result>
             <result name="error">/login.html</result>
         </action>
 
